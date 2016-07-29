@@ -74,7 +74,7 @@ function makeConfig(dataProvider) {
     "theme": "light",
     "dataProvider": dataProvider
     ...
-   };
+  };
 }
 ```
 
@@ -83,6 +83,6 @@ function makeConfig(dataProvider) {
 this.chart = makeConfig([...]);
 ```
 
-Why do you need to make a copy of the config? Even if you change the properties of the object, the object itself has not changed, and so Angular2 does not update the AmCharts directive.
+Why do you need to make a copy of the config? Even if you change the properties of the object, the object itself has not changed, and therefore Angular2 does **not** update the AmCharts directive.
 
 But if you make a copy of the object, then Angular2 realizes that the object is different, and so it updates the AmCharts directive. This is an issue with Angular2, and there isn't much we can do about it.
