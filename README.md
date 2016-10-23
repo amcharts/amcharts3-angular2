@@ -19,20 +19,23 @@ How to use
 
 ----
 
-2) In your Angular2 app, import the amCharts directive:
+2) In your Angular2 module, import the amCharts directive and place it into the `declarations`:
 
 ```
 import { AmChartsDirective } from "amcharts3-angular2/amcharts.directive";
+
+@NgModule({
+  declarations: [ AmChartsDirective ]
+})
 ```
 
 ----
 
-3) Use the `<amCharts>` tag in your `template`, and also use `AmChartsDirective` in the `directives`:
+3) Use the `<amCharts>` tag in your `template`:
 
 ```
 @Component({
-  template: `<amCharts [id]="id" [options]="chart" [style.width.%]="100" [style.height.%]="100"></amCharts>`,
-  directives: [AmChartsDirective]
+  template: `<amCharts [id]="id" [options]="chart" [style.width.%]="100" [style.height.%]="100"></amCharts>`
 })
 ```
 
