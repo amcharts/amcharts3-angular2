@@ -4,7 +4,7 @@ Installation
 ============
 
 ```
-npm install
+npm install amcharts/amcharts3-angular2 --save
 ```
 
 How to use
