@@ -1,131 +1,131 @@
-import { Component, ChangeDetectorRef } from "@angular/core";
-
-interface Data {
-  country: string;
-  visits: number;
-  color: string;
-}
-
-interface Configuration {
-  dataProvider: Array<Data>;
-  fillColors: string;
-}
-
-const makeChart = ({ dataProvider, fillColors } : Configuration) => {
-  return {
-    "type": "serial",
-    "theme": "light",
-    "marginRight": 70,
-    "dataProvider": dataProvider,
-    "valueAxes": [{
-      "axisAlpha": 0,
-      "position": "left",
-      "title": "Visitors from country"
-    }],
-    "startDuration": 1,
-    "graphs": [{
-      "balloonText": "<b>[[category]]: [[value]]</b>",
-      "fillColorsField": "color",
-      "fillAlphas": 0.9,
-      "lineAlpha": 0.2,
-      "type": "column",
-      "valueField": "visits",
-      "fillColors": fillColors
-    }],
-    "chartCursor": {
-      "categoryBalloonEnabled": false,
-      "cursorAlpha": 0,
-      "zoomable": false
-    },
-    "categoryField": "country",
-    "categoryAxis": {
-      "gridPosition": "start",
-      "labelRotation": 45
-    },
-    "export": {
-      "enabled": true
-    }
-  };
-};
-
+import { Component } from "@angular/core";
 
 @Component({
-  selector: "my-app",
-  template: `
-    <button (click)="change()">
-      Change data + colors
-    </button>
-    <amCharts [id]="id" [options]="chart" [style.width.%]="100" [style.height.%]="100"></amCharts>
-  `
+    moduleId: module.id,
+    selector: 'my-app',
+    templateUrl:'component.html',
+    template: `
+        <button (click)="doClick()">clique aqui</button>
+        <amCharts [id]="id" [(options)]="chart" [style.width.%]="100" [style.height.%]="100"></amCharts>
+    `
+    
 })
-export class AppComponent {
-  private id: string = "chartdiv";
 
-  private data: any = [{
-    country: "USA",
-    visits: 3025,
-    color: "#FF0F00"
-  }, {
-    country: "China",
-    visits: 1882,
-    color: "#FF6600"
-  }, {
-    country: "Japan",
-    visits: 1809,
-    color: "#FF9E01"
-  }, {
-    country: "Germany",
-    visits: 1322,
-    color: "#FCD202"
-  }, {
-    country: "UK",
-    visits: 1122,
-    color: "#F8FF01"
-  }, {
-    country: "France",
-    visits: 1114,
-    color: "#B0DE09"
-  }, {
-    country: "India",
-    visits: 984,
-    color: "#04D215"
-  }, {
-    country: "Spain",
-    visits: 711,
-    color: "#0D8ECF"
-  }, {
-    country: "Netherlands",
-    visits: 665,
-    color: "#0D52D1"
-  }, {
-    country: "Russia",
-    visits: 580,
-    color: "#2A0CD0"
-  }, {
-    country: "South Korea",
-    visits: 443,
-    color: "#8A0CCF"
-  }, {
-    country: "Canada",
-    visits: 441,
-    color: "#CD0D74"
-  }];
-
-  private chart: any = makeChart({
-    dataProvider: this.data,
-    fillColors: "red"
-  });
-
-  change() {
-    this.chart = makeChart({
-      dataProvider: this.data.map((x: Data) => {
-        return {
-          country: x.country,
-          visits: Math.floor(Math.random() * 100),
-          color: x.color
-        };
-      }),
-      fillColors: "green"
-    });
-  }
+export class AppComponent{
+    
+    private id: string = "chartdiv";
+    private chart: any;
+    
+    public constructor(){
+        this.chart = this.makeChart(this.data);
+    }
+    
+    public doClick(){
+        this.change();
+    }
+    
+    
+    private change() {
+        try{
+            //this.chart = JSON.parse(JSON.stringify(this.chart));
+            var v = JSON.parse(JSON.stringify(this.data));
+            for(var i in v){
+                v[i]['column-1'] = Math.floor(Math.random() * 10);
+                v[i]['column-2'] = Math.floor(Math.random() * 10);
+            }
+            this.data = v;
+            //this.chart.dataProvider = this.data;
+            this.chart = this.makeChart(this.data);
+        }catch(e){
+            console.log(e);
+        }
+        
+    }
+    
+        private makeChart(dataProvider: any) {
+            return {
+                "type": "serial",
+                "categoryField": "category",
+                "startDuration": 1,
+                "categoryAxis": {
+                    "gridPosition": "start"
+                },
+                "trendLines": [],
+                "graphs": [
+                    {
+                        "balloonText": "[[title]] of [[category]]:[[value]]",
+                        "bullet": "round",
+                        "id": "AmGraph-1",
+                        "title": "graph 1",
+                        "valueField": "column-1"
+                    },
+                    {
+                        "balloonText": "[[title]] of [[category]]:[[value]]",
+                        "bullet": "square",
+                        "id": "AmGraph-2",
+                        "title": "graph 2",
+                        "valueField": "column-2"
+                    }
+                ],
+                "guides": [],
+                "valueAxes": [
+                    {
+                        "id": "ValueAxis-1",
+                        "title": "Axis title"
+                    }
+                ],
+                "allLabels": [],
+                "balloon": {},
+                "legend": {
+                    "enabled": true,
+                    "useGraphSettings": true
+                },
+                "titles": [
+                    {
+                        "id": "Title-1",
+                        "size": 15,
+                        "text": "Chart Title"
+                    }
+                ],
+                "dataProvider": dataProvider
+            };
+        }
+    
+    private data: any = [
+        {
+                "category": "category 1",
+                "column-1": 8,
+                "column-2": 5
+        },
+        {
+                "category": "category 2",
+                "column-1": 6,
+                "column-2": 7
+        },
+        {
+                "category": "category 3",
+                "column-1": 2,
+                "column-2": 3
+        },
+        {
+                "category": "category 4",
+                "column-1": 1,
+                "column-2": 3
+        },
+        {
+                "category": "category 5",
+                "column-1": 2,
+                "column-2": 1
+        },
+        {
+                "category": "category 6",
+                "column-1": 3,
+                "column-2": 2
+        },
+        {
+                "category": "category 7",
+                "column-1": 6,
+                "column-2": 8
+        }
+    ];
 }
