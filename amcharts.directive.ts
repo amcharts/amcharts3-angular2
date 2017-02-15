@@ -259,13 +259,16 @@ export class AmChartsDirective implements OnDestroy, OnChanges, OnInit {
     if (x.options) {
       // Update the chart after init
       if (this.chart) {
-        var didUpdate = updateObject(this.chart, x.options.previousValue, x.options.currentValue);
+        // This is needed to avoid triggering ngDoCheck
+        this._zone.runOutsideAngular(() => {
+          var didUpdate = updateObject(this.chart, x.options.previousValue, x.options.currentValue);
 
-        // TODO make this faster
-        if (didUpdate) {
-          this.chart.validateNow();
-          this.chart.validateData();
-        }
+          // TODO make this faster
+          if (didUpdate) {
+            this.chart.validateNow();
+            this.chart.validateData();
+          }
+        });
       }
     }
   }
@@ -278,6 +281,7 @@ export class AmChartsDirective implements OnDestroy, OnChanges, OnInit {
     // TODO a bit hacky
     this.el.style.display = "block";
 
+    // This is needed to avoid triggering ngDoCheck
     this._zone.runOutsideAngular(() => {
       // AmCharts mutates the config object, so we have to make a deep copy to prevent that
       var props = copy(this.options);
@@ -288,6 +292,7 @@ export class AmChartsDirective implements OnDestroy, OnChanges, OnInit {
 
   ngOnDestroy() {
     if (this.chart) {
+      // TODO does this need to use runOutsideAngular ?
       this.chart.clear();
     }
   }

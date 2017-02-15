@@ -189,13 +189,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
             this.el = el.nativeElement;
         }
         AmChartsDirective.prototype.ngOnChanges = function (x) {
+            var _this = this;
             if (x.options) {
                 if (this.chart) {
-                    var didUpdate = updateObject(this.chart, x.options.previousValue, x.options.currentValue);
-                    if (didUpdate) {
-                        this.chart.validateNow();
-                        this.chart.validateData();
-                    }
+                    this._zone.runOutsideAngular(function () {
+                        var didUpdate = updateObject(_this.chart, x.options.previousValue, x.options.currentValue);
+                        if (didUpdate) {
+                            _this.chart.validateNow();
+                            _this.chart.validateData();
+                        }
+                    });
                 }
             }
         };
