@@ -1,4 +1,4 @@
-An official Angular 2 plugin for amCharts V3
+Official Angular 2 plugin for amCharts V3
 
 Installation
 ============
