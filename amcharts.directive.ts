@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, SimpleChange } from "@angular/core";
+import { Directive, ElementRef, Input, SimpleChange, NgZone } from "@angular/core";
 
 // TODO better type for this
 // TODO move this into a separate file ?
@@ -185,7 +185,7 @@ export class AmChartsDirective {
   @Input() options: any; // TODO better type for this
 
   // TODO is this correct ?
-  constructor(el: ElementRef) {
+  constructor(el: ElementRef, private _zone: NgZone) {
     this.el = el.nativeElement;
   }
 
@@ -210,7 +210,9 @@ export class AmChartsDirective {
     this.el.id = this.id;
     // TODO a bit hacky
     this.el.style.display = "block";
-    this.chart = AmCharts.makeChart(this.id, copy(this.options));
+    this._zone.runOutsideAngular(() => {
+        this.chart = AmCharts.makeChart(this.id, copy(this.options));
+    });
   }
 
   ngOnDestroy() {
