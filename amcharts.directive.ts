@@ -1,13 +1,16 @@
 import { Directive, ElementRef, Input, SimpleChange, NgZone } from "@angular/core";
-
-// TODO better type for this
-// TODO move this into a separate file ?
-declare var AmCharts: any;
+import "amcharts3/amcharts/amcharts.js";
+import "amcharts3/amcharts/serial.js"; // TODO make this optional ?
+import "amcharts3/amcharts/themes/light.js"; // TODO make this optional ?
 
 
 function getType(x) {
   // TODO make this faster ?
   return {}.toString.call(x);
+}
+
+function hasOwnKey(obj, key) {
+  return {}.hasOwnProperty.call(obj, key);
 }
 
 
@@ -16,7 +19,9 @@ function copyObject(x) {
 
   // TODO use Object.keys ?
   for (var key in x) {
-    output[key] = copy(x[key]);
+    if (hasOwnKey(x, key)) {
+      output[key] = copy(x[key]);
+    }
   }
 
   return output;
@@ -54,119 +59,181 @@ function copy(x) {
 }
 
 
-function isEqualArray(x, y) {
-  var xLength = x.length;
-  var yLength = y.length;
-
-  if (xLength === yLength) {
-    for (var i = 0; i < xLength; ++i) {
-      if (!isEqual(x[i], y[i])) {
-        return false;
-      }
-    }
-
-    return true;
-
-  } else {
-    return false;
-  }
-}
-
-function isEqualObject(x, y) {
-  // TODO use Object.keys ?
-  for (var key in x) {
-    if (key in y) {
-      if (!isEqual(x[key], y[key])) {
-        return false;
-      }
-
-    } else {
-      return false;
-    }
-  }
-
-  // TODO use Object.keys ?
-  for (var key in y) {
-    if (!(key in x)) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
 function isNaN(x) {
-  return x !== x
+  return x !== x;
 }
 
-function isEqual(x, y) {
-  var xType = getType(x);
-  var yType = getType(y);
+function isNumberEqual(x, y) {
+  return x === y || (isNaN(x) && isNaN(y));
+}
 
-  if (xType === yType) {
-    switch (xType) {
-    case "[object Array]":
-      return isEqualArray(x, y);
 
-    case "[object Object]":
-      return isEqualObject(x, y);
-
-    case "[object Date]":
-      return x.getTime() === y.getTime();
-
-    case "[object Number]":
-      return x === y || (isNaN(x) && isNaN(y))
-
-    default:
-      return x === y;
+function removeChartListeners(chart, x, y) {
+  if (x !== y) {
+    // TODO is this necessary ?
+    if (x == null) {
+      x = [];
     }
 
-  } else {
-    return false;
-  }
-}
-
-
-function removeChartListeners(chart, listeners) {
-  if (listeners != null) {
-    // TODO use Object.keys ?
-    for (var key in listeners) {
-      var listener = listeners[key];
-
-      chart.removeListener(chart, listener.event, listener.method);
+    // TODO is this necessary ?
+    if (y == null) {
+      y = [];
     }
-  }
-}
 
-// TODO make this faster ?
-// TODO does this work for listeners, etc. ?
-function updateChartObject(chart, oldObj, newObj) {
-  var didUpdate = false;
+    var xLength = x.length;
+    var yLength = y.length;
 
-  // TODO use Object.keys ?
-  for (var key in newObj) {
-    // TODO make this faster ?
-    if (!(key in oldObj) || !isEqual(oldObj[key], newObj[key])) {
-      if (key === "listeners") {
-        // TODO make this faster ?
-        removeChartListeners(chart, oldObj[key]);
-      }
+    for (var i = 0; i < xLength; ++i) {
+      var xValue = x[i];
+
+      var has = false;
 
       // TODO make this faster ?
-      chart[key] = copy(newObj[key]);
+      for (var j = 0; j < yLength; ++j) {
+        var yValue = y[j];
+
+        // TODO is this correct ?
+        if (xValue.event  === yValue.event &&
+            xValue.method === yValue.method) {
+          has = true;
+          break;
+        }
+      }
+
+      if (!has) {
+        // TODO is this correct ?
+        chart.removeListener(chart, xValue.event, xValue.method);
+      }
+    }
+  }
+}
+
+
+function updateArray(a, x, y) {
+  var didUpdate = false;
+
+  if (x !== y) {
+    var xLength = x.length;
+    var yLength = y.length;
+
+    if (xLength !== yLength) {
+      a.length = yLength;
+      didUpdate = true;
+    }
+
+    for (var i = 0; i < yLength; ++i) {
+      if (i < xLength) {
+        if (update(a, i, x[i], y[i])) {
+          didUpdate = true;
+        }
+
+      } else {
+        // TODO make this faster ?
+        a[i] = copy(y[i]);
+        // TODO is this necessary ?
+        didUpdate = true;
+      }
+    }
+  }
+
+  return didUpdate;
+}
+
+
+function update(obj, key, x, y) {
+  var didUpdate = false;
+
+  if (x !== y) {
+    var xType = getType(x);
+    var yType = getType(y);
+
+    if (xType === yType) {
+      switch (xType) {
+      case "[object Array]":
+        if (updateArray(obj[key], x, y)) {
+          didUpdate = true;
+        }
+        break;
+
+      case "[object Object]":
+        if (updateObject(obj[key], x, y)) {
+          didUpdate = true;
+        }
+        break;
+
+      case "[object Date]":
+        if (x.getTime() !== y.getTime()) {
+          // TODO make this faster ?
+          obj[key] = copy(y);
+          didUpdate = true;
+        }
+        break;
+
+      case "[object Number]":
+        if (!isNumberEqual(x, y)) {
+          // TODO is the copy necessary ?
+          obj[key] = copy(y);
+          didUpdate = true;
+        }
+        break;
+
+      default:
+        if (x !== y) {
+          // TODO is the copy necessary ?
+          obj[key] = copy(y);
+          didUpdate = true;
+        }
+        break;
+      }
+
+    // TODO is this correct ?
+    } else {
+      // TODO make this faster ?
+      obj[key] = copy(y);
       didUpdate = true;
     }
   }
 
-  // TODO use Object.keys ?
-  for (var key in oldObj) {
-    if (!(key in newObj)) {
-      if (key === "listeners") {
-        removeChartListeners(chart, oldObj[key]);
-      }
+  return didUpdate;
+}
 
-      delete chart[key];
-      didUpdate = true;
+function updateObject(chart, oldObj, newObj) {
+  var didUpdate = false;
+
+  if (oldObj !== newObj) {
+    // TODO use Object.keys ?
+    for (var key in newObj) {
+      if (hasOwnKey(newObj, key)) {
+        // TODO make this faster ?
+        if (hasOwnKey(oldObj, key)) {
+          // TODO should this count as an update ?
+          if (key === "listeners") {
+            // TODO make this faster ?
+            removeChartListeners(chart, oldObj[key], newObj[key]);
+          }
+
+          if (update(chart, key, oldObj[key], newObj[key])) {
+            didUpdate = true;
+          }
+
+        } else {
+          // TODO make this faster ?
+          chart[key] = copy(newObj[key]);
+          didUpdate = true;
+        }
+      }
+    }
+
+    // TODO use Object.keys ?
+    for (var key in oldObj) {
+      if (hasOwnKey(oldObj, key) && !hasOwnKey(newObj, key)) {
+        if (key === "listeners") {
+          removeChartListeners(chart, oldObj[key], []);
+        }
+
+        delete chart[key];
+        didUpdate = true;
+      }
     }
   }
 
@@ -194,11 +261,12 @@ export class AmChartsDirective {
     if (x.options) {
       // Update the chart after init
       if (this.chart) {
-        var didUpdate = updateChartObject(this.chart, x.options.previousValue, x.options.currentValue);
+        var didUpdate = updateObject(this.chart, x.options.previousValue, x.options.currentValue);
 
+        // TODO make this faster
         if (didUpdate) {
-          // TODO is this correct ?
-          this.chart.validateNow(true, false);
+          this.chart.validateNow();
+          this.chart.validateData();
         }
       }
     }
@@ -208,10 +276,15 @@ export class AmChartsDirective {
   ngOnInit() {
     // TODO is this correct ?
     this.el.id = this.id;
+
     // TODO a bit hacky
     this.el.style.display = "block";
+
     this._zone.runOutsideAngular(() => {
-        this.chart = AmCharts.makeChart(this.id, copy(this.options));
+      // AmCharts mutates the config object, so we have to make a deep copy to prevent that
+      var props = copy(this.options);
+
+      this.chart = (window as any).AmCharts.makeChart(this.id, props);
     });
   }
 
