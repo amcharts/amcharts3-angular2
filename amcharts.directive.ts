@@ -1,7 +1,5 @@
-import { Directive, ElementRef, Input, SimpleChange, NgZone } from "@angular/core";
-import "amcharts3/amcharts/amcharts.js";
-import "amcharts3/amcharts/serial.js"; // TODO make this optional ?
-import "amcharts3/amcharts/themes/light.js"; // TODO make this optional ?
+import { Directive, ElementRef, Input, SimpleChange, NgZone, NgModule,
+         OnDestroy, OnChanges, OnInit } from "@angular/core";
 
 
 function getType(x) {
@@ -244,7 +242,7 @@ function updateObject(chart, oldObj, newObj) {
 @Directive({
   selector: "amCharts"
 })
-export class AmChartsDirective {
+export class AmChartsDirective implements OnDestroy, OnChanges, OnInit {
   private el: any; // TODO better type for this
   private chart: any; // TODO better type for this
 
@@ -294,3 +292,15 @@ export class AmChartsDirective {
     }
   }
 }
+
+
+@NgModule({
+  declarations: [
+    AmChartsDirective
+  ],
+  exports: [
+    AmChartsDirective
+  ],
+  imports: []
+})
+export class AmChartsModule {}

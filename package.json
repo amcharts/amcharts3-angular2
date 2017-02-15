@@ -7,7 +7,6 @@
     "url": "https://github.com/amcharts/amcharts3-angular2.git"
   },
   "peerDependencies": {
-    "amcharts3": "amcharts/amcharts3",
     "@angular/core": "^2.4.7"
   }
 }
