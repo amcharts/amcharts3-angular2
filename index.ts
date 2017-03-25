@@ -2,17 +2,17 @@ import { Directive, ElementRef, Input, SimpleChange, NgZone, NgModule,
          OnDestroy, OnChanges, OnInit } from "@angular/core";
 
 
-function getType(x) {
+function getType(x: any) {
   // TODO make this faster ?
   return {}.toString.call(x);
 }
 
-function hasOwnKey(obj, key) {
+function hasOwnKey(obj: any, key: any) {
   return {}.hasOwnProperty.call(obj, key);
 }
 
 
-function copyObject(x) {
+function copyObject(x: any) {
   var output = {};
 
   // TODO use Object.keys ?
@@ -25,7 +25,7 @@ function copyObject(x) {
   return output;
 }
 
-function copyArray(x) {
+function copyArray(x: any) {
   var length = x.length;
 
   var output = new Array(length);
@@ -39,7 +39,7 @@ function copyArray(x) {
 
 // TODO can this be made faster ?
 // TODO what about regexps, etc. ?
-function copy(x) {
+function copy(x: any) {
   switch (getType(x)) {
   case "[object Array]":
     return copyArray(x);
@@ -57,16 +57,16 @@ function copy(x) {
 }
 
 
-function isNaN(x) {
+function isNaN(x: any) {
   return x !== x;
 }
 
-function isNumberEqual(x, y) {
+function isNumberEqual(x: any, y: any) {
   return x === y || (isNaN(x) && isNaN(y));
 }
 
 
-function removeChartListeners(chart, x, y) {
+function removeChartListeners(chart: any, x: any, y: any) {
   if (x !== y) {
     // TODO is this necessary ?
     if (x == null) {
@@ -107,7 +107,7 @@ function removeChartListeners(chart, x, y) {
 }
 
 
-function updateArray(a, x, y) {
+function updateArray(a: any, x: any, y: any) {
   var didUpdate = false;
 
   if (x !== y) {
@@ -138,7 +138,7 @@ function updateArray(a, x, y) {
 }
 
 
-function update(obj, key, x, y) {
+function update(obj: any, key: any, x: any, y: any) {
   var didUpdate = false;
 
   if (x !== y) {
@@ -195,7 +195,7 @@ function update(obj, key, x, y) {
   return didUpdate;
 }
 
-function updateObject(chart, oldObj, newObj) {
+function updateObject(chart: any, oldObj: any, newObj: any) {
   var didUpdate = false;
 
   if (oldObj !== newObj) {
