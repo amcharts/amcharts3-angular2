@@ -1,5 +1,4 @@
-import { Directive, ElementRef, Input, SimpleChange, NgZone, NgModule,
-         OnDestroy, OnChanges, OnInit } from "@angular/core";
+import { Directive, ElementRef, Input, SimpleChange, NgZone, NgModule } from "@angular/core";
 
 
 function getType(x: any) {
@@ -244,7 +243,7 @@ let chartId = 0;
 @Directive({
   selector: "amCharts"
 })
-export class AmChartsDirective implements OnDestroy, OnChanges, OnInit {
+export class AmChartsDirective {
   private el: any; // TODO better type for this
   private chart: any; // TODO better type for this
 

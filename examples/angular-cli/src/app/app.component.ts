@@ -8,8 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   private id = "chartdiv";
 
-  private options;
-  private timer;
+  private options: any;
+  private timer: number;
 
   makeChartConfig() {
     var dataProvider = [];
