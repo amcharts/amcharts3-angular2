@@ -59,7 +59,7 @@ export class AppComponent {
 }
 ```
 
-The id that you use with `makeChart` must be the same as the `<div>` id.
+The `id` that you use with `makeChart` must be the same as the `<div>`'s `id`. The `id` can be whatever you want, but if you display multiple charts each chart must have a different `id`
 
 When you are finished with the chart, you must call the `destroyChart` method. It's good to put this into the `ngOnDestroy` method.
 
