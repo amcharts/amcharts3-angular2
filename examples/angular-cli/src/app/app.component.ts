@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AmChartsService } from "amcharts3-angular2";
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,65 @@ import { Component } from '@angular/core';
 export class AppComponent {
   private timer: number;
 
-  private options: any = this.makeChartConfig({ dataProvider: this.makeRandomDataProvider() });
+  constructor(private AmCharts: AmChartsService) {}
+
+  private chart = this.AmCharts.makeChart("chartdiv", {
+    "type": "serial",
+    "theme": "light",
+    "marginTop":0,
+    "marginRight": 80,
+    "dataProvider": this.makeRandomDataProvider(),
+    "valueAxes": [{
+      "axisAlpha": 0,
+      "position": "left"
+    }],
+    "graphs": [{
+      "id":"g1",
+      "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+      "bullet": "round",
+      "bulletSize": 8,
+      "lineColor": "#d1655d",
+      "lineThickness": 2,
+      "negativeLineColor": "#637bb6",
+      "type": "smoothedLine",
+      "valueField": "value"
+    }],
+    "chartScrollbar": {
+      "graph":"g1",
+      "gridAlpha":0,
+      "color":"#888888",
+      "scrollbarHeight":55,
+      "backgroundAlpha":0,
+      "selectedBackgroundAlpha":0.1,
+      "selectedBackgroundColor":"#888888",
+      "graphFillAlpha":0,
+      "autoGridCount":true,
+      "selectedGraphFillAlpha":0,
+      "graphLineAlpha":0.2,
+      "graphLineColor":"#c2c2c2",
+      "selectedGraphLineColor":"#888888",
+      "selectedGraphLineAlpha":1
+    },
+    "chartCursor": {
+      "categoryBalloonDateFormat": "YYYY",
+      "cursorAlpha": 0,
+      "valueLineEnabled":true,
+      "valueLineBalloonEnabled":true,
+      "valueLineAlpha":0.5,
+      "fullWidth":true
+    },
+    "dataDateFormat": "YYYY",
+    "categoryField": "year",
+    "categoryAxis": {
+      "minPeriod": "YYYY",
+      "parseDates": true,
+      "minorGridAlpha": 0.1,
+      "minorGridEnabled": true
+    },
+    "export": {
+      "enabled": true
+    }
+  });
 
   makeRandomDataProvider() {
     var dataProvider = [];
@@ -24,74 +83,18 @@ export class AppComponent {
     return dataProvider;
   }
 
-  makeChartConfig(info: { dataProvider: any }) {
-    return {
-      "type": "serial",
-      "theme": "light",
-      "marginTop":0,
-      "marginRight": 80,
-      "dataProvider": info.dataProvider,
-      "valueAxes": [{
-        "axisAlpha": 0,
-        "position": "left"
-      }],
-      "graphs": [{
-        "id":"g1",
-        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
-        "bullet": "round",
-        "bulletSize": 8,
-        "lineColor": "#d1655d",
-        "lineThickness": 2,
-        "negativeLineColor": "#637bb6",
-        "type": "smoothedLine",
-        "valueField": "value"
-      }],
-      "chartScrollbar": {
-        "graph":"g1",
-        "gridAlpha":0,
-        "color":"#888888",
-        "scrollbarHeight":55,
-        "backgroundAlpha":0,
-        "selectedBackgroundAlpha":0.1,
-        "selectedBackgroundColor":"#888888",
-        "graphFillAlpha":0,
-        "autoGridCount":true,
-        "selectedGraphFillAlpha":0,
-        "graphLineAlpha":0.2,
-        "graphLineColor":"#c2c2c2",
-        "selectedGraphLineColor":"#888888",
-        "selectedGraphLineAlpha":1
-      },
-      "chartCursor": {
-        "categoryBalloonDateFormat": "YYYY",
-        "cursorAlpha": 0,
-        "valueLineEnabled":true,
-        "valueLineBalloonEnabled":true,
-        "valueLineAlpha":0.5,
-        "fullWidth":true
-      },
-      "dataDateFormat": "YYYY",
-      "categoryField": "year",
-      "categoryAxis": {
-        "minPeriod": "YYYY",
-        "parseDates": true,
-        "minorGridAlpha": 0.1,
-        "minorGridEnabled": true
-      },
-      "export": {
-        "enabled": true
-      }
-    };
-  }
-
   ngOnInit() {
     // Updates the chart every 3 seconds
     this.timer = setInterval(() => {
-      this.options = this.makeChartConfig({ dataProvider: this.makeRandomDataProvider() });
+      // This must be called when making any changes to the chart
+      this.AmCharts.updateChart(this.chart, () => {
+        this.chart.dataProvider = this.makeRandomDataProvider();
+      });
     }, 3000);
   }
 
   ngOnDestroy() {
     clearInterval(this.timer);
+    this.AmCharts.destroyChart(this.chart);
   }
 }

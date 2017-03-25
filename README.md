@@ -35,76 +35,53 @@ export class AppModule {}
 
 ----
 
-3) Use the `<amCharts>` tag in your `template`, and specify the `options`:
+3) Inject the `AmChartsService` into your app component, create a `<div>` element with an `id`, then use the `makeChart` method to create the chart:
 
 ```
+import { AmChartsService } from "amcharts3-angular2";
+
 @Component({
-  template: `<amCharts [options]="options" [style.width.%]="100" [style.height.px]="500"></amCharts>`
+  template: `<div id="chartdiv" [style.width.%]="100" [style.height.px]="500"></div>`
 })
 export class AppComponent {
-  private options = {
+  constructor(private AmCharts: AmChartsService) {}
+
+  private chart = this.AmCharts.makeChart("chartdiv", {
     "type": "serial",
     "theme": "light",
     "dataProvider": []
     ...
-  };
+  });
+
+  ngOnDestroy() {
+    this.AmCharts.destroyChart(this.chart);
+  }
 }
 ```
+
+The id that you use with `makeChart` must be the same as the `<div>` id.
+
+When you are finished with the chart, you must call the `destroyChart` method. It's good to put this into the `ngOnDestroy` method.
 
 ----
 
-4) If you want to dynamically change the chart options after the chart has been created, you first need to create a *copy* of the existing options:
+5) If you want to change the chart after the chart has been created, you must make the changes using the `updateChart` method:
 
 ```
 export class AppComponent {
-  // Initial configuration
-  private options = {
-    "type": "serial",
-    "theme": "light",
-    "dataProvider": []
-    ...
-  };
-
   changeChart() {
-    // Make a copy of the existing options
-    this.options = JSON.parse(JSON.serialize(this.options));
+    // This must be called when making any changes to the chart
+    this.AmCharts.updateChart(this.chart, () => {
+      // Change whatever properties you want, add event listeners, etc.
+      this.chart.dataProvider = [];
 
-    // Change the dataProvider
-    this.options.dataProvider = [...];
-  }
-}
-```
-
-Alternatively, you can use a function or method to create the new options:
-
-```
-export class AppComponent {
-  // Initial configuration
-  private options = this.makeConfig({
-    dataProvider: []
-  });
-
-  makeConfig(info) {
-    return {
-      "type": "serial",
-      "theme": "light",
-      "dataProvider": info.dataProvider
-      ...
-    };
-  }
-
-  changeChart() {
-    // Change the dataProvider
-    this.options = this.makeConfig({
-      dataProvider: [...]
+      this.chart.addListener("animationFinished", () => {
+        // Do stuff when the animation is finished
+      });
     });
   }
 }
 ```
-
-Why do you need to make a copy of the options? Even if you change the properties of the object, the object itself has not changed, and therefore Angular does **not** update AmCharts.
-
-But if you make a copy of the object, then Angular realizes that the object is different, and so it updates AmCharts. This is an issue with Angular, and there isn't much we can do about it.
 
 ----
 
@@ -114,7 +91,7 @@ You can see some examples in the `examples` directory.
 
 ### 1.2.0
 * Adding in support for Angular 4
-* It is now possible to omit the id
+* Deprecating the <amCharts> element in favor of the new AmChartsService
 
 ### 1.1.0
 * Various fixes

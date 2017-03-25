@@ -183,10 +183,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         }
         return didUpdate;
     }
-    var chartId = 0;
     var AmChartsDirective = (function () {
         function AmChartsDirective(el, _zone) {
             this._zone = _zone;
+            console.warn("Using the <amCharts> element is deprecated: use AmChartsService instead");
             this.el = el.nativeElement;
         }
         AmChartsDirective.prototype.ngOnChanges = function (x) {
@@ -206,11 +206,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         AmChartsDirective.prototype.ngOnInit = function () {
             var _this = this;
             this._zone.runOutsideAngular(function () {
-                var id = _this.id || "__amCharts_" + (++chartId) + "__";
                 var props = copy(_this.options);
-                _this.el.id = id;
+                _this.el.id = _this.id;
                 _this.el.style.display = "block";
-                _this.chart = window.AmCharts.makeChart(id, props, _this.delay);
+                _this.chart = AmCharts.makeChart(_this.id, props);
             });
         };
         AmChartsDirective.prototype.ngOnDestroy = function () {
@@ -225,16 +224,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     }());
     __decorate([
         core_1.Input(),
-        __metadata("design:type", Object)
+        __metadata("design:type", String)
     ], AmChartsDirective.prototype, "id", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object)
     ], AmChartsDirective.prototype, "options", void 0);
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", Object)
-    ], AmChartsDirective.prototype, "delay", void 0);
     AmChartsDirective = __decorate([
         core_1.Directive({
             selector: "amCharts"
@@ -242,6 +237,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         __metadata("design:paramtypes", [core_1.ElementRef, core_1.NgZone])
     ], AmChartsDirective);
     exports.AmChartsDirective = AmChartsDirective;
+    var AmChartsService = (function () {
+        function AmChartsService(zone) {
+            this.zone = zone;
+        }
+        AmChartsService.prototype.makeChart = function () {
+            var a = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                a[_i - 0] = arguments[_i];
+            }
+            return this.zone.runOutsideAngular(function () { return AmCharts.makeChart.apply(AmCharts, a); });
+        };
+        AmChartsService.prototype.updateChart = function (chart, fn) {
+            this.zone.runOutsideAngular(function () {
+                fn();
+                chart.validateNow(true);
+            });
+        };
+        AmChartsService.prototype.destroyChart = function (chart) {
+            this.zone.runOutsideAngular(function () {
+                chart.clear();
+            });
+        };
+        return AmChartsService;
+    }());
+    AmChartsService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [core_1.NgZone])
+    ], AmChartsService);
+    exports.AmChartsService = AmChartsService;
     var AmChartsModule = (function () {
         function AmChartsModule() {
         }
@@ -255,7 +279,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
             exports: [
                 AmChartsDirective
             ],
-            imports: []
+            providers: [
+                AmChartsService
+            ]
         }),
         __metadata("design:paramtypes", [])
     ], AmChartsModule);

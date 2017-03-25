@@ -1,4 +1,8 @@
-import { Directive, ElementRef, Input, SimpleChange, NgZone, NgModule } from "@angular/core";
+import { Directive, ElementRef, Input, SimpleChange, NgZone, NgModule, Injectable } from "@angular/core";
+
+
+// TODO better type for this
+declare const AmCharts: any;
 
 
 function getType(x: any) {
@@ -238,8 +242,6 @@ function updateObject(chart: any, oldObj: any, newObj: any) {
 }
 
 
-let chartId = 0;
-
 @Directive({
   selector: "amCharts"
 })
@@ -247,12 +249,12 @@ export class AmChartsDirective {
   private el: any; // TODO better type for this
   private chart: any; // TODO better type for this
 
-  @Input() id: string | undefined;
+  @Input() id: string;
   @Input() options: any; // TODO better type for this
-  @Input() delay: number | undefined;
 
   // TODO is this correct ?
   constructor(el: ElementRef, private _zone: NgZone) {
+    console.warn("Using the <amCharts> element is deprecated: use AmChartsService instead");
     this.el = el.nativeElement;
   }
 
@@ -279,18 +281,16 @@ export class AmChartsDirective {
   ngOnInit() {
     // This is needed to avoid triggering ngDoCheck
     this._zone.runOutsideAngular(() => {
-      const id = this.id || "__amCharts_" + (++chartId) + "__";
-
       // AmCharts mutates the config object, so we have to make a deep copy to prevent that
       const props = copy(this.options);
 
       // TODO is this correct ?
-      this.el.id = id;
+      this.el.id = this.id;
 
       // TODO a bit hacky
       this.el.style.display = "block";
 
-      this.chart = (window as any).AmCharts.makeChart(id, props, this.delay);
+      this.chart = AmCharts.makeChart(this.id, props);
     });
   }
 
@@ -305,6 +305,31 @@ export class AmChartsDirective {
 }
 
 
+@Injectable()
+export class AmChartsService {
+  constructor(private zone: NgZone) {}
+
+  // TODO better type for this
+  makeChart(...a: any[]): any {
+    return this.zone.runOutsideAngular(() => AmCharts.makeChart(...a));
+  }
+
+  // TODO better type for this
+  updateChart(chart: any, fn: () => void): void {
+    this.zone.runOutsideAngular(() => {
+      fn();
+      chart.validateNow(true);
+    });
+  }
+
+  destroyChart(chart: any): void {
+    this.zone.runOutsideAngular(() => {
+      chart.clear();
+    });
+  }
+}
+
+
 @NgModule({
   declarations: [
     AmChartsDirective
@@ -312,6 +337,8 @@ export class AmChartsDirective {
   exports: [
     AmChartsDirective
   ],
-  imports: []
+  providers: [
+    AmChartsService
+  ]
 })
 export class AmChartsModule {}
