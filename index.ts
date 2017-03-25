@@ -239,6 +239,8 @@ function updateObject(chart: any, oldObj: any, newObj: any) {
 }
 
 
+let chartId = 0;
+
 @Directive({
   selector: "amCharts"
 })
@@ -246,7 +248,7 @@ export class AmChartsDirective implements OnDestroy, OnChanges, OnInit {
   private el: any; // TODO better type for this
   private chart: any; // TODO better type for this
 
-  @Input() id: string;
+  @Input() id: string | undefined;
   @Input() options: any; // TODO better type for this
   @Input() delay: number | undefined;
 
@@ -276,25 +278,29 @@ export class AmChartsDirective implements OnDestroy, OnChanges, OnInit {
 
   // TODO is this the correct hook to use ?
   ngOnInit() {
-    // TODO is this correct ?
-    this.el.id = this.id;
-
-    // TODO a bit hacky
-    this.el.style.display = "block";
-
     // This is needed to avoid triggering ngDoCheck
     this._zone.runOutsideAngular(() => {
-      // AmCharts mutates the config object, so we have to make a deep copy to prevent that
-      var props = copy(this.options);
+      const id = this.id || "__amCharts_" + (++chartId) + "__";
 
-      this.chart = (window as any).AmCharts.makeChart(this.id, props, this.delay);
+      // AmCharts mutates the config object, so we have to make a deep copy to prevent that
+      const props = copy(this.options);
+
+      // TODO is this correct ?
+      this.el.id = id;
+
+      // TODO a bit hacky
+      this.el.style.display = "block";
+
+      this.chart = (window as any).AmCharts.makeChart(id, props, this.delay);
     });
   }
 
   ngOnDestroy() {
     if (this.chart) {
       // TODO does this need to use runOutsideAngular ?
-      this.chart.clear();
+      this._zone.runOutsideAngular(() => {
+        this.chart.clear();
+      });
     }
   }
 }

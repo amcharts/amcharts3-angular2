@@ -183,6 +183,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         }
         return didUpdate;
     }
+    var chartId = 0;
     var AmChartsDirective = (function () {
         function AmChartsDirective(el, _zone) {
             this._zone = _zone;
@@ -204,28 +205,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         };
         AmChartsDirective.prototype.ngOnInit = function () {
             var _this = this;
-            this.el.id = this.id;
-            this.el.style.display = "block";
             this._zone.runOutsideAngular(function () {
+                var id = _this.id || "__amCharts_" + (++chartId) + "__";
                 var props = copy(_this.options);
-                _this.chart = window.AmCharts.makeChart(_this.id, props);
+                _this.el.id = id;
+                _this.el.style.display = "block";
+                _this.chart = window.AmCharts.makeChart(id, props, _this.delay);
             });
         };
         AmChartsDirective.prototype.ngOnDestroy = function () {
+            var _this = this;
             if (this.chart) {
-                this.chart.clear();
+                this._zone.runOutsideAngular(function () {
+                    _this.chart.clear();
+                });
             }
         };
         return AmChartsDirective;
     }());
     __decorate([
         core_1.Input(),
-        __metadata("design:type", String)
+        __metadata("design:type", Object)
     ], AmChartsDirective.prototype, "id", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object)
     ], AmChartsDirective.prototype, "options", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], AmChartsDirective.prototype, "delay", void 0);
     AmChartsDirective = __decorate([
         core_1.Directive({
             selector: "amCharts"
