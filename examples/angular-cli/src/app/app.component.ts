@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private config: any;
+  private options: any;
   private timer: number;
 
   makeRandomDataProvider() {
@@ -84,11 +84,11 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.config = this.makeChartConfig({ dataProvider: this.makeRandomDataProvider() });
+    this.options = this.makeChartConfig({ dataProvider: this.makeRandomDataProvider() });
 
     // Updates the chart every 3 seconds
     this.timer = setInterval(() => {
-      this.config = this.makeChartConfig({ dataProvider: this.makeRandomDataProvider() });
+      this.options = this.makeChartConfig({ dataProvider: this.makeRandomDataProvider() });
     }, 3000);
   }
 

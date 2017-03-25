@@ -1,4 +1,4 @@
-Official Angular 2 plugin for amCharts V3
+Official Angular plugin for amCharts V3
 
 Installation
 ============
@@ -35,15 +35,13 @@ export class AppModule {}
 
 ----
 
-3) Use the `<amCharts>` tag in your `template`, and also specify the `id` and `options`:
+3) Use the `<amCharts>` tag in your `template`, and specify the `options`:
 
 ```
 @Component({
-  template: `<amCharts [id]="id" [options]="options" [style.width.%]="100" [style.height.px]="500"></amCharts>`
+  template: `<amCharts [options]="options" [style.width.%]="100" [style.height.px]="500"></amCharts>`
 })
 export class AppComponent {
-  private id = "chartdiv";
-
   private options = {
     "type": "serial",
     "theme": "light",
@@ -55,56 +53,68 @@ export class AppComponent {
 
 ----
 
-4) If you want to dynamically change the chart config after the chart has been created, you first need to create a *copy* of the existing config:
+4) If you want to dynamically change the chart options after the chart has been created, you first need to create a *copy* of the existing options:
 
 ```
 export class AppComponent {
-  private id = "chartdiv";
-
-  private options;
+  // Initial configuration
+  private options = {
+    "type": "serial",
+    "theme": "light",
+    "dataProvider": []
+    ...
+  };
 
   changeChart() {
-    // Make a copy of the existing config
+    // Make a copy of the existing options
     this.options = JSON.parse(JSON.serialize(this.options));
 
-    // Change the config
+    // Change the dataProvider
     this.options.dataProvider = [...];
   }
 }
 ```
 
-Alternatively, you can use a function or method to create a new config:
+Alternatively, you can use a function or method to create the new options:
 
 ```
 export class AppComponent {
-  private id = "chartdiv";
+  // Initial configuration
+  private options = this.makeConfig({
+    dataProvider: []
+  });
 
-  private options;
-
-  makeConfig(dataProvider) {
+  makeConfig(info) {
     return {
       "type": "serial",
       "theme": "light",
-      "dataProvider": dataProvider
+      "dataProvider": info.dataProvider
       ...
     };
   }
 
   changeChart() {
-    this.options = this.makeConfig([...]);
+    // Change the dataProvider
+    this.options = this.makeConfig({
+      dataProvider: [...]
+    });
   }
 }
 ```
 
-Why do you need to make a copy of the config? Even if you change the properties of the object, the object itself has not changed, and therefore Angular2 does **not** update AmCharts.
+Why do you need to make a copy of the options? Even if you change the properties of the object, the object itself has not changed, and therefore Angular does **not** update AmCharts.
 
-But if you make a copy of the object, then Angular2 realizes that the object is different, and so it updates AmCharts. This is an issue with Angular2, and there isn't much we can do about it.
+But if you make a copy of the object, then Angular realizes that the object is different, and so it updates AmCharts. This is an issue with Angular, and there isn't much we can do about it.
 
 ----
 
 You can see some examples in the `examples` directory.
 
 ## Changelog
+
+### 1.2.0
+* Adding in support for Angular 4
+* It is now possible to omit the id
 
 ### 1.1.0
 * Various fixes
