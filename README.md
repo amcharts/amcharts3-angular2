@@ -42,9 +42,9 @@ export class AppModule {}
   template: `<amCharts [id]="id" [options]="options" [style.width.%]="100" [style.height.px]="500"></amCharts>`
 })
 export class AppComponent {
-  id = "chartdiv";
+  private id = "chartdiv";
 
-  options = {
+  private options = {
     "type": "serial",
     "theme": "light",
     "dataProvider": []
@@ -59,6 +59,10 @@ export class AppComponent {
 
 ```
 export class AppComponent {
+  private id = "chartdiv";
+
+  private options;
+
   changeChart() {
     // Make a copy of the existing config
     this.options = JSON.parse(JSON.serialize(this.options));
@@ -73,6 +77,10 @@ Alternatively, you can use a function or method to create a new config:
 
 ```
 export class AppComponent {
+  private id = "chartdiv";
+
+  private options;
+
   makeConfig(dataProvider) {
     return {
       "type": "serial",
