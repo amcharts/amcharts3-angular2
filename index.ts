@@ -248,6 +248,7 @@ export class AmChartsDirective implements OnDestroy, OnChanges, OnInit {
 
   @Input() id: string;
   @Input() options: any; // TODO better type for this
+  @Input() delay: number;
 
   // TODO is this correct ?
   constructor(el: ElementRef, private _zone: NgZone) {
@@ -286,7 +287,7 @@ export class AmChartsDirective implements OnDestroy, OnChanges, OnInit {
       // AmCharts mutates the config object, so we have to make a deep copy to prevent that
       var props = copy(this.options);
 
-      this.chart = (window as any).AmCharts.makeChart(this.id, props);
+      this.chart = (window as any).AmCharts.makeChart(this.id, props, this.delay);
     });
   }
 
