@@ -12,7 +12,7 @@ How to use
 
 1) In your HTML file, load the amCharts library using `<script>` tags:
 
-```
+```html
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
 <script src="https://www.amcharts.com/lib/3/serial.js"></script>
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
@@ -22,7 +22,7 @@ How to use
 
 2) In your app module, import the `AmChartsModule` module and add it to the `imports`:
 
-```
+```js
 import { AmChartsModule } from "amcharts3-angular2";
 
 @NgModule({
@@ -37,7 +37,7 @@ export class AppModule {}
 
 3) Inject the `AmChartsService` into your app component, create a `<div>` element with an `id`, then use the `makeChart` method to create the chart:
 
-```
+```js
 import { AmChartsService } from "amcharts3-angular2";
 
 @Component({
@@ -59,7 +59,7 @@ export class AppComponent {
 }
 ```
 
-The `id` that you use with `makeChart` must be the same as the `<div>`'s `id`. The `id` can be whatever you want, but if you display multiple charts each chart must have a different `id`
+The first argument to `makeChart` must be the same as the `<div>`'s `id`. The `id` can be whatever you want, but if you display multiple charts each chart must have a different `id`
 
 When you are finished with the chart, you must call the `destroyChart` method. It's good to put this inside the `ngOnDestroy` method.
 
@@ -67,20 +67,16 @@ When you are finished with the chart, you must call the `destroyChart` method. I
 
 5) If you want to change the chart after the chart has been created, you must make the changes using the `updateChart` method:
 
-```
-export class AppComponent {
-  changeChart() {
-    // This must be called when making any changes to the chart
-    this.AmCharts.updateChart(this.chart, () => {
-      // Change whatever properties you want, add event listeners, etc.
-      this.chart.dataProvider = [];
+```js
+// This must be called when making any changes to the chart
+this.AmCharts.updateChart(this.chart, () => {
+  // Change whatever properties you want, add event listeners, etc.
+  this.chart.dataProvider = [];
 
-      this.chart.addListener("animationFinished", () => {
-        // Do stuff when the animation is finished
-      });
-    });
-  }
-}
+  this.chart.addListener("init", () => {
+    // Do stuff after the chart is initialized
+  });
+});
 ```
 
 ----
