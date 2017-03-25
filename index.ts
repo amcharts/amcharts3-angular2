@@ -248,7 +248,7 @@ export class AmChartsDirective implements OnDestroy, OnChanges, OnInit {
 
   @Input() id: string;
   @Input() options: any; // TODO better type for this
-  @Input() delay: number;
+  @Input() delay: number | undefined;
 
   // TODO is this correct ?
   constructor(el: ElementRef, private _zone: NgZone) {
