@@ -6,12 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private id = "chartdiv";
-
-  private options: any;
+  private config: any;
   private timer: number;
 
-  makeChartConfig() {
+  makeRandomDataProvider() {
     var dataProvider = [];
 
     // Generate random data
@@ -22,12 +20,16 @@ export class AppComponent {
       });
     }
 
+    return dataProvider;
+  }
+
+  makeChartConfig(info: { dataProvider: any }) {
     return {
       "type": "serial",
       "theme": "light",
       "marginTop":0,
       "marginRight": 80,
-      "dataProvider": dataProvider,
+      "dataProvider": info.dataProvider,
       "valueAxes": [{
         "axisAlpha": 0,
         "position": "left"
@@ -82,11 +84,11 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.options = this.makeChartConfig();
+    this.config = this.makeChartConfig({ dataProvider: this.makeRandomDataProvider() });
 
     // Updates the chart every 3 seconds
     this.timer = setInterval(() => {
-      this.options = this.makeChartConfig();
+      this.config = this.makeChartConfig({ dataProvider: this.makeRandomDataProvider() });
     }, 3000);
   }
 
