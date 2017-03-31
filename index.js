@@ -198,8 +198,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
                     this._zone.runOutsideAngular(function () {
                         var didUpdate = updateObject(_this.chart, x.options.previousValue, x.options.currentValue);
                         if (didUpdate) {
-                            _this.chart.validateNow();
-                            _this.chart.validateData();
+                            _this.chart.validateNow(true);
                         }
                     });
                 }

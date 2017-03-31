@@ -269,8 +269,7 @@ export class AmChartsDirective {
 
           // TODO make this faster
           if (didUpdate) {
-            this.chart.validateNow();
-            this.chart.validateData();
+            this.chart.validateNow(true);
           }
         });
       }
