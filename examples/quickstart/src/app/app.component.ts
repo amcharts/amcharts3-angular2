@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import { AmChartsService } from "amcharts3-angular2";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'my-app',
+  template: `<div id="chartdiv" [style.width.%]="100" [style.height.px]="500"></div>`
 })
 export class AppComponent {
-  private timer: number;
+  private timer: NodeJS.Timer;
   private chart: any;
 
   constructor(private AmCharts: AmChartsService) {}

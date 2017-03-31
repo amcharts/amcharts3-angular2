@@ -44,14 +44,18 @@ import { AmChartsService } from "amcharts3-angular2";
   template: `<div id="chartdiv" [style.width.%]="100" [style.height.px]="500"></div>`
 })
 export class AppComponent {
+  private chart: any;
+
   constructor(private AmCharts: AmChartsService) {}
 
-  private chart = this.AmCharts.makeChart("chartdiv", {
-    "type": "serial",
-    "theme": "light",
-    "dataProvider": []
-    ...
-  });
+  ngOnInit() {
+    this.chart = this.AmCharts.makeChart("chartdiv", {
+      "type": "serial",
+      "theme": "light",
+      "dataProvider": []
+      ...
+    });
+  }
 
   ngOnDestroy() {
     this.AmCharts.destroyChart(this.chart);

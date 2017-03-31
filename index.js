@@ -7,15 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-(function (dependencies, factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
     }
-    else if (typeof define === 'function' && define.amd) {
-        define(dependencies, factory);
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "@angular/core"], factory);
     }
-})(["require", "exports", "@angular/core"], function (require, exports) {
+})(function (require, exports) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var core_1 = require("@angular/core");
     function getType(x) {
         return {}.toString.call(x);
@@ -234,7 +236,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         core_1.Directive({
             selector: "amCharts"
         }),
-        __metadata("design:paramtypes", [core_1.ElementRef, core_1.NgZone])
+        __metadata("design:paramtypes", [typeof (_a = typeof core_1.ElementRef !== "undefined" && core_1.ElementRef) === "function" && _a || Object, typeof (_b = typeof core_1.NgZone !== "undefined" && core_1.NgZone) === "function" && _b || Object])
     ], AmChartsDirective);
     exports.AmChartsDirective = AmChartsDirective;
     var AmChartsService = (function () {
@@ -244,7 +246,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         AmChartsService.prototype.makeChart = function () {
             var a = [];
             for (var _i = 0; _i < arguments.length; _i++) {
-                a[_i - 0] = arguments[_i];
+                a[_i] = arguments[_i];
             }
             return this.zone.runOutsideAngular(function () { return AmCharts.makeChart.apply(AmCharts, a); });
         };
@@ -263,7 +265,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     }());
     AmChartsService = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [core_1.NgZone])
+        __metadata("design:paramtypes", [typeof (_c = typeof core_1.NgZone !== "undefined" && core_1.NgZone) === "function" && _c || Object])
     ], AmChartsService);
     exports.AmChartsService = AmChartsService;
     var AmChartsModule = (function () {
@@ -282,9 +284,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
             providers: [
                 AmChartsService
             ]
-        }),
-        __metadata("design:paramtypes", [])
+        })
     ], AmChartsModule);
     exports.AmChartsModule = AmChartsModule;
+    var _a, _b, _c;
 });
 //# sourceMappingURL=index.js.map
