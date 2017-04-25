@@ -1,0 +1,15 @@
+machine:
+  node:
+    version: 6.10.2
+
+dependencies:
+  override:
+    - yarn install
+
+test:
+  override:
+    - yarn build
+
+    # Temporary, until we have automated build and package publishing process.
+    # If there are any not committed git changes, it probably means commit author forgot doing `yarn build` and commit the build artifacts.
+    - git diff --exit-code || ( echo -e "\nThere are some changes in git.\nDid you forgot doing `yarn build` and commit compiled files?" && false )
