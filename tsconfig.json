@@ -1,29 +1,26 @@
 {
+    "files": [
+        "index.ts"
+    ],
     "compilerOptions": {
         "target": "es5",
-        "module": "umd",
+        "module": "es2015",
+        "lib": ["es6", "es2015", "dom"],
         "moduleResolution": "node",
-        "isolatedModules": false,
-        "jsx": "react",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "declaration": false,
+        "declaration": true,
         "noImplicitAny": true,
-        "noImplicitUseStrict": false,
         "removeComments": true,
-        "noLib": false,
-        "preserveConstEnums": true,
         "suppressImplicitAnyIndexErrors": true,
         "sourceMap": true,
+        "skipLibCheck": true,
         "strictNullChecks": true
     },
-    "exclude": [
-        "node_modules",
-        "typings/browser",
-        "typings/browser.d.ts"
-    ],
-    "compileOnSave": true,
-    "buildOnSave": false,
+    "angularCompilerOptions": {
+        "strictMetadataEmit": true,
+        "skipTemplateCodegen": true
+    },
     "atom": {
         "rewriteTsconfig": false
     }
