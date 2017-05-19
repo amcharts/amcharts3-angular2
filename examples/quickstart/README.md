@@ -8,12 +8,12 @@ Run `npm install` and then `npm start` to run the server. Navigate to `http://lo
 
 ----
 
-If you are creating your own QuickStart seed, you will need to add `amcharts3-angular2` to your `src/systemjs.config.js` file, like this:
+If you are creating your own QuickStart seed, you will need to add `@amcharts/amcharts3-angular` to your `src/systemjs.config.js` file, like this:
 
 ```js
 System.config({
   map: {
-    'amcharts3-angular2': 'node_modules/amcharts3-angular2/index.js'
+    '@amcharts/amcharts3-angular': 'node_modules/@amcharts/amcharts3-angular/umd/index.js'
   }
 });
 ```

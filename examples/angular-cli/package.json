@@ -23,7 +23,7 @@
     "core-js": "^2.4.1",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4",
-    "amcharts3-angular2": "file:../.."
+    "@amcharts/amcharts3-angular": "file:../.."
   },
   "devDependencies": {
     "@angular/cli": "1.0.0",

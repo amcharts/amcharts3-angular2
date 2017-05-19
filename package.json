@@ -1,15 +1,16 @@
 {
-  "name": "amcharts3-angular2",
+  "name": "@amcharts/amcharts3-angular",
   "version": "1.2.0",
   "description": "Official Angular 2 plugin for amCharts V3",
-  "module": "index.js",
-  "typings": "index.d.ts",
+  "main": "umd/index.js",
+  "module": "es2015/index.js",
+  "typings": "es2015/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/amcharts/amcharts3-angular2.git"
   },
   "scripts": {
-    "build": "ngc"
+    "build": "ngc && ngc --p tsconfig-umd.json"
   },
   "peerDependencies": {
     "@angular/core": "^2.0.0 || ^4.0.0"

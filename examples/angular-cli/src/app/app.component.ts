@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AmChartsService } from "amcharts3-angular2";
+import { AmChartsService } from "@amcharts/amcharts3-angular";
 
 @Component({
   selector: 'app-root',

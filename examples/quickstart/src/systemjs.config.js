@@ -22,7 +22,7 @@
       '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
-      'amcharts3-angular2': 'node_modules/amcharts3-angular2/index.js',
+      '@amcharts/amcharts3-angular': 'node_modules/@amcharts/amcharts3-angular/umd/index.js',
 
       // other libraries
       'rxjs':                      'npm:rxjs',

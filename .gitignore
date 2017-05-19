@@ -1,2 +1,4 @@
 /node_modules
 .idea
+/index.ngfactory.ts
+/index.ngsummary.json

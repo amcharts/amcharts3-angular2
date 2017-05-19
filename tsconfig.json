@@ -3,6 +3,7 @@
         "index.ts"
     ],
     "compilerOptions": {
+        "outDir": "es2015",
         "target": "es5",
         "module": "es2015",
         "lib": ["es6", "es2015", "dom"],

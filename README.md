@@ -4,7 +4,7 @@ Installation
 ============
 
 ```
-npm install amcharts/amcharts3-angular2 --save
+npm install @amcharts/amcharts3-angular --save
 ```
 
 How to use
@@ -23,7 +23,7 @@ How to use
 2) In your app module, import the `AmChartsModule` module and add it to the `imports`:
 
 ```js
-import { AmChartsModule } from "amcharts3-angular2";
+import { AmChartsModule } from "@amcharts/amcharts3-angular";
 
 @NgModule({
   imports: [
@@ -38,7 +38,7 @@ export class AppModule {}
 3) Inject the `AmChartsService` into your app component, create a `<div>` element with an `id`, then use the `makeChart` method to create the chart:
 
 ```js
-import { AmChartsService } from "amcharts3-angular2";
+import { AmChartsService } from "@amcharts/amcharts3-angular";
 
 @Component({
   template: `<div id="chartdiv" [style.width.%]="100" [style.height.px]="500"></div>`
