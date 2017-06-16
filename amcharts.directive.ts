@@ -1,3 +1,3 @@
-export * from "./index";
+export * from "./src/index";
 
-console.warn("The amcharts.directive.ts file is deprecated, use index.ts instead");
+console.warn("The amcharts.directive.ts file is deprecated, import '@amcharts/amcharts3-angular' instead");
