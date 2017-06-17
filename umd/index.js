@@ -212,21 +212,21 @@
                 });
             }
         };
+        AmChartsDirective.decorators = [
+            { type: core_1.Directive, args: [{
+                        selector: "amCharts"
+                    },] },
+        ];
+        AmChartsDirective.ctorParameters = function () { return [
+            { type: core_1.ElementRef, },
+            { type: core_1.NgZone, },
+        ]; };
+        AmChartsDirective.propDecorators = {
+            'id': [{ type: core_1.Input },],
+            'options': [{ type: core_1.Input },],
+        };
         return AmChartsDirective;
     }());
-    AmChartsDirective.decorators = [
-        { type: core_1.Directive, args: [{
-                    selector: "amCharts"
-                },] },
-    ];
-    AmChartsDirective.ctorParameters = function () { return [
-        { type: core_1.ElementRef, },
-        { type: core_1.NgZone, },
-    ]; };
-    AmChartsDirective.propDecorators = {
-        'id': [{ type: core_1.Input },],
-        'options': [{ type: core_1.Input },],
-    };
     exports.AmChartsDirective = AmChartsDirective;
     var AmChartsService = (function () {
         function AmChartsService(zone) {
@@ -250,34 +250,34 @@
                 chart.clear();
             });
         };
+        AmChartsService.decorators = [
+            { type: core_1.Injectable },
+        ];
+        AmChartsService.ctorParameters = function () { return [
+            { type: core_1.NgZone, },
+        ]; };
         return AmChartsService;
     }());
-    AmChartsService.decorators = [
-        { type: core_1.Injectable },
-    ];
-    AmChartsService.ctorParameters = function () { return [
-        { type: core_1.NgZone, },
-    ]; };
     exports.AmChartsService = AmChartsService;
     var AmChartsModule = (function () {
         function AmChartsModule() {
         }
+        AmChartsModule.decorators = [
+            { type: core_1.NgModule, args: [{
+                        declarations: [
+                            AmChartsDirective
+                        ],
+                        exports: [
+                            AmChartsDirective
+                        ],
+                        providers: [
+                            AmChartsService
+                        ]
+                    },] },
+        ];
+        AmChartsModule.ctorParameters = function () { return []; };
         return AmChartsModule;
     }());
-    AmChartsModule.decorators = [
-        { type: core_1.NgModule, args: [{
-                    declarations: [
-                        AmChartsDirective
-                    ],
-                    exports: [
-                        AmChartsDirective
-                    ],
-                    providers: [
-                        AmChartsService
-                    ]
-                },] },
-    ];
-    AmChartsModule.ctorParameters = function () { return []; };
     exports.AmChartsModule = AmChartsModule;
 });
 //# sourceMappingURL=index.js.map

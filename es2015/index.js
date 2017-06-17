@@ -201,22 +201,22 @@ var AmChartsDirective = (function () {
             });
         }
     };
+    AmChartsDirective.decorators = [
+        { type: Directive, args: [{
+                    selector: "amCharts"
+                },] },
+    ];
+    AmChartsDirective.ctorParameters = function () { return [
+        { type: ElementRef, },
+        { type: NgZone, },
+    ]; };
+    AmChartsDirective.propDecorators = {
+        'id': [{ type: Input },],
+        'options': [{ type: Input },],
+    };
     return AmChartsDirective;
 }());
 export { AmChartsDirective };
-AmChartsDirective.decorators = [
-    { type: Directive, args: [{
-                selector: "amCharts"
-            },] },
-];
-AmChartsDirective.ctorParameters = function () { return [
-    { type: ElementRef, },
-    { type: NgZone, },
-]; };
-AmChartsDirective.propDecorators = {
-    'id': [{ type: Input },],
-    'options': [{ type: Input },],
-};
 var AmChartsService = (function () {
     function AmChartsService(zone) {
         this.zone = zone;
@@ -239,33 +239,33 @@ var AmChartsService = (function () {
             chart.clear();
         });
     };
+    AmChartsService.decorators = [
+        { type: Injectable },
+    ];
+    AmChartsService.ctorParameters = function () { return [
+        { type: NgZone, },
+    ]; };
     return AmChartsService;
 }());
 export { AmChartsService };
-AmChartsService.decorators = [
-    { type: Injectable },
-];
-AmChartsService.ctorParameters = function () { return [
-    { type: NgZone, },
-]; };
 var AmChartsModule = (function () {
     function AmChartsModule() {
     }
+    AmChartsModule.decorators = [
+        { type: NgModule, args: [{
+                    declarations: [
+                        AmChartsDirective
+                    ],
+                    exports: [
+                        AmChartsDirective
+                    ],
+                    providers: [
+                        AmChartsService
+                    ]
+                },] },
+    ];
+    AmChartsModule.ctorParameters = function () { return []; };
     return AmChartsModule;
 }());
 export { AmChartsModule };
-AmChartsModule.decorators = [
-    { type: NgModule, args: [{
-                declarations: [
-                    AmChartsDirective
-                ],
-                exports: [
-                    AmChartsDirective
-                ],
-                providers: [
-                    AmChartsService
-                ]
-            },] },
-];
-AmChartsModule.ctorParameters = function () { return []; };
 //# sourceMappingURL=index.js.map

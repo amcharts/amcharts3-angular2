@@ -89,6 +89,9 @@ You can see some examples in the `examples` directory.
 
 ## Changelog
 
+### 1.2.1
+* Updating to the latest version of the Angular compiler
+
 ### 1.2.0
 * Adding in support for Angular 4
 * Deprecating the `<amCharts>` element in favor of the new `AmChartsService`
