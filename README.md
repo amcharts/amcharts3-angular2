@@ -105,6 +105,9 @@ You can see some examples in the `examples` directory.
 
 ## Changelog
 
+### 1.3.0
+* Adding in all of the global `AmCharts` properties to the `AmChartsService`
+
 ### 1.2.1
 * Updating to the latest version of the Angular compiler
 
