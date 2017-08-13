@@ -18,6 +18,22 @@ How to use
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 ```
 
+If you are using other chart types, you should change `serial.js` to the chart type that you are using:
+
+```html
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+```
+
+If you are using maps, you should use these `<script>` tags instead:
+
+```html
+<script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+<script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+```
+
 ----
 
 2) In your app module, import the `AmChartsModule` module and add it to the `imports`:

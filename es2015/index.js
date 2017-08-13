@@ -221,12 +221,95 @@ var AmChartsService = (function () {
     function AmChartsService(zone) {
         this.zone = zone;
     }
-    AmChartsService.prototype.makeChart = function () {
-        var a = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            a[_i] = arguments[_i];
-        }
-        return this.zone.runOutsideAngular(function () { return AmCharts.makeChart.apply(AmCharts, a); });
+    Object.defineProperty(AmChartsService.prototype, "baseHref", {
+        get: function () {
+            return AmCharts.baseHref;
+        },
+        set: function (v) {
+            AmCharts.baseHref = v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AmChartsService.prototype, "useUTC", {
+        get: function () {
+            return AmCharts.useUTC;
+        },
+        set: function (v) {
+            AmCharts.useUTC = v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AmChartsService.prototype, "dayNames", {
+        get: function () {
+            return AmCharts.dayNames;
+        },
+        set: function (v) {
+            AmCharts.dayNames = v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AmChartsService.prototype, "monthNames", {
+        get: function () {
+            return AmCharts.monthNames;
+        },
+        set: function (v) {
+            AmCharts.monthNames = v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AmChartsService.prototype, "shortDayNames", {
+        get: function () {
+            return AmCharts.shortDayNames;
+        },
+        set: function (v) {
+            AmCharts.shortDayNames = v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AmChartsService.prototype, "shortMonthNames", {
+        get: function () {
+            return AmCharts.shortMonthNames;
+        },
+        set: function (v) {
+            AmCharts.shortMonthNames = v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AmChartsService.prototype, "theme", {
+        get: function () {
+            return AmCharts.theme;
+        },
+        set: function (v) {
+            AmCharts.theme = v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AmChartsService.prototype, "processDelay", {
+        get: function () {
+            return AmCharts.processDelay;
+        },
+        set: function (v) {
+            AmCharts.processDelay = v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AmChartsService.prototype, "charts", {
+        get: function () {
+            return AmCharts.charts;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    AmChartsService.prototype.makeChart = function (id, config, delay) {
+        return this.zone.runOutsideAngular(function () { return AmCharts.makeChart(id, config, delay); });
     };
     AmChartsService.prototype.updateChart = function (chart, fn) {
         this.zone.runOutsideAngular(function () {
