@@ -25,7 +25,7 @@ export class AppComponent {
     return dataProvider;
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.chart = this.AmCharts.makeChart("chartdiv", {
       "type": "serial",
       "theme": "light",

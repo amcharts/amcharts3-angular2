@@ -64,7 +64,7 @@ export class AppComponent {
 
   constructor(private AmCharts: AmChartsService) {}
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.chart = this.AmCharts.makeChart("chartdiv", {
       "type": "serial",
       "theme": "light",
