@@ -74,7 +74,9 @@ export class AppComponent {
   }
 
   ngOnDestroy() {
-    this.AmCharts.destroyChart(this.chart);
+    if (this.chart) {
+      this.AmCharts.destroyChart(this.chart);
+    }
   }
 }
 ```

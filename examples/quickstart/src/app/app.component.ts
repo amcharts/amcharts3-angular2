@@ -95,6 +95,9 @@ export class AppComponent {
 
   ngOnDestroy() {
     clearInterval(this.timer);
-    this.AmCharts.destroyChart(this.chart);
+
+    if (this.chart) {
+      this.AmCharts.destroyChart(this.chart);
+    }
   }
 }
