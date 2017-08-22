@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AmChartsService } from "@amcharts/amcharts3-angular";
+import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import { AmChartsService } from "@amcharts/amcharts3-angular";
 })
 export class AppComponent {
   private timer: number;
-  private chart: any;
+  private chart: AmChart;
 
   constructor(private AmCharts: AmChartsService) {}
 

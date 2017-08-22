@@ -54,13 +54,13 @@ export class AppModule {}
 3) Inject the `AmChartsService` into your app component, create a `<div>` element with an `id`, then use the `makeChart` method to create the chart:
 
 ```js
-import { AmChartsService } from "@amcharts/amcharts3-angular";
+import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
 
 @Component({
   template: `<div id="chartdiv" [style.width.%]="100" [style.height.px]="500"></div>`
 })
 export class AppComponent {
-  private chart: any;
+  private chart: AmChart;
 
   constructor(private AmCharts: AmChartsService) {}
 
