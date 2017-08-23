@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, SimpleChange, NgZone, NgModule, Injectable } from "@angular/core";
+import { Component, Directive, ElementRef, Input, SimpleChanges, NgZone, NgModule, Injectable } from "@angular/core";
 
 
 // TODO better type for this
@@ -246,25 +246,51 @@ function updateObject(chart: any, oldObj: any, newObj: any) {
   selector: "amCharts"
 })
 export class AmChartsDirective {
-  private el: any; // TODO better type for this
-  private chart: any; // TODO better type for this
-
   @Input() id: string;
   @Input() options: any; // TODO better type for this
+  @Input() width: string = "100%";
+  @Input() height: string = "100%";
+  @Input() delay: number = 0;
 
-  // TODO is this correct ?
-  constructor(el: ElementRef, private _zone: NgZone) {
-    console.warn("Using the <amCharts> element is deprecated: use AmChartsService instead");
-    this.el = el.nativeElement;
+  private chart: AmChart;
+
+  constructor(private el: ElementRef, private AmCharts: AmChartsService, private zone: NgZone) {}
+
+  ngAfterViewInit() {
+    // AmCharts mutates the config object, so we have to make a deep copy to prevent that
+    const props = copy(this.options);
+
+    const el = this.el.nativeElement;
+
+    el.id = this.id;
+    el.style.display = "block";
+    el.style.width = this.width;
+    el.style.height = this.height;
+
+    this.chart = this.AmCharts.makeChart(this.id, props, this.delay);
   }
 
   // TODO is this correct ?
-  ngOnChanges(x: { options: SimpleChange }) {
+  ngOnChanges(x: SimpleChanges) {
+    const el = this.el.nativeElement;
+
+    if (x.id) {
+      el.id = x.id.currentValue;
+    }
+
+    if (x.width) {
+      el.style.width = x.width.currentValue;
+    }
+
+    if (x.height) {
+      el.style.height = x.height.currentValue;
+    }
+
     if (x.options) {
       // Update the chart after init
       if (this.chart) {
         // This is needed to avoid triggering ngDoCheck
-        this._zone.runOutsideAngular(() => {
+        this.zone.runOutsideAngular(() => {
           var didUpdate = updateObject(this.chart, x.options.previousValue, x.options.currentValue);
 
           // TODO make this faster
@@ -276,29 +302,9 @@ export class AmChartsDirective {
     }
   }
 
-  // TODO is this the correct hook to use ?
-  ngOnInit() {
-    // This is needed to avoid triggering ngDoCheck
-    this._zone.runOutsideAngular(() => {
-      // AmCharts mutates the config object, so we have to make a deep copy to prevent that
-      const props = copy(this.options);
-
-      // TODO is this correct ?
-      this.el.id = this.id;
-
-      // TODO a bit hacky
-      this.el.style.display = "block";
-
-      this.chart = AmCharts.makeChart(this.id, props);
-    });
-  }
-
   ngOnDestroy() {
     if (this.chart) {
-      // TODO does this need to use runOutsideAngular ?
-      this._zone.runOutsideAngular(() => {
-        this.chart.clear();
-      });
+      this.AmCharts.destroyChart(this.chart);
     }
   }
 }

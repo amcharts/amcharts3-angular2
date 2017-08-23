@@ -1,15 +1,17 @@
-import { ElementRef, SimpleChange, NgZone } from "@angular/core";
+import { ElementRef, SimpleChanges, NgZone } from "@angular/core";
 export declare class AmChartsDirective {
-    private _zone;
     private el;
-    private chart;
+    private AmCharts;
+    private zone;
     id: string;
     options: any;
-    constructor(el: ElementRef, _zone: NgZone);
-    ngOnChanges(x: {
-        options: SimpleChange;
-    }): void;
-    ngOnInit(): void;
+    width: string;
+    height: string;
+    delay: number;
+    private chart;
+    constructor(el: ElementRef, AmCharts: AmChartsService, zone: NgZone);
+    ngAfterViewInit(): void;
+    ngOnChanges(x: SimpleChanges): void;
     ngOnDestroy(): void;
 }
 export interface AmChart {

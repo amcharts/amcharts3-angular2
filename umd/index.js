@@ -177,16 +177,38 @@
         return didUpdate;
     }
     var AmChartsDirective = (function () {
-        function AmChartsDirective(el, _zone) {
-            this._zone = _zone;
-            console.warn("Using the <amCharts> element is deprecated: use AmChartsService instead");
-            this.el = el.nativeElement;
+        function AmChartsDirective(el, AmCharts, zone) {
+            this.el = el;
+            this.AmCharts = AmCharts;
+            this.zone = zone;
+            this.width = "100%";
+            this.height = "100%";
+            this.delay = 0;
         }
+        AmChartsDirective.prototype.ngAfterViewInit = function () {
+            var props = copy(this.options);
+            var el = this.el.nativeElement;
+            el.id = this.id;
+            el.style.display = "block";
+            el.style.width = this.width;
+            el.style.height = this.height;
+            this.chart = this.AmCharts.makeChart(this.id, props, this.delay);
+        };
         AmChartsDirective.prototype.ngOnChanges = function (x) {
             var _this = this;
+            var el = this.el.nativeElement;
+            if (x.id) {
+                el.id = x.id.currentValue;
+            }
+            if (x.width) {
+                el.style.width = x.width.currentValue;
+            }
+            if (x.height) {
+                el.style.height = x.height.currentValue;
+            }
             if (x.options) {
                 if (this.chart) {
-                    this._zone.runOutsideAngular(function () {
+                    this.zone.runOutsideAngular(function () {
                         var didUpdate = updateObject(_this.chart, x.options.previousValue, x.options.currentValue);
                         if (didUpdate) {
                             _this.chart.validateNow(true);
@@ -195,21 +217,9 @@
                 }
             }
         };
-        AmChartsDirective.prototype.ngOnInit = function () {
-            var _this = this;
-            this._zone.runOutsideAngular(function () {
-                var props = copy(_this.options);
-                _this.el.id = _this.id;
-                _this.el.style.display = "block";
-                _this.chart = AmCharts.makeChart(_this.id, props);
-            });
-        };
         AmChartsDirective.prototype.ngOnDestroy = function () {
-            var _this = this;
             if (this.chart) {
-                this._zone.runOutsideAngular(function () {
-                    _this.chart.clear();
-                });
+                this.AmCharts.destroyChart(this.chart);
             }
         };
         AmChartsDirective.decorators = [
@@ -219,11 +229,15 @@
         ];
         AmChartsDirective.ctorParameters = function () { return [
             { type: core_1.ElementRef, },
+            { type: AmChartsService, },
             { type: core_1.NgZone, },
         ]; };
         AmChartsDirective.propDecorators = {
             'id': [{ type: core_1.Input },],
             'options': [{ type: core_1.Input },],
+            'width': [{ type: core_1.Input },],
+            'height': [{ type: core_1.Input },],
+            'delay': [{ type: core_1.Input },],
         };
         return AmChartsDirective;
     }());
