@@ -248,8 +248,6 @@ function updateObject(chart: any, oldObj: any, newObj: any) {
 export class AmChartsDirective {
   @Input() id: string;
   @Input() options: any; // TODO better type for this
-  @Input() width: string = "100%";
-  @Input() height: string = "100%";
   @Input() delay: number = 0;
 
   private chart: AmChart;
@@ -264,8 +262,6 @@ export class AmChartsDirective {
 
     el.id = this.id;
     el.style.display = "block";
-    el.style.width = this.width;
-    el.style.height = this.height;
 
     this.chart = this.AmCharts.makeChart(this.id, props, this.delay);
   }
@@ -276,14 +272,6 @@ export class AmChartsDirective {
 
     if (x.id) {
       el.id = x.id.currentValue;
-    }
-
-    if (x.width) {
-      el.style.width = x.width.currentValue;
-    }
-
-    if (x.height) {
-      el.style.height = x.height.currentValue;
     }
 
     if (x.options) {

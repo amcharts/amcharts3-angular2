@@ -170,8 +170,6 @@ var AmChartsDirective = (function () {
         this.el = el;
         this.AmCharts = AmCharts;
         this.zone = zone;
-        this.width = "100%";
-        this.height = "100%";
         this.delay = 0;
     }
     AmChartsDirective.prototype.ngAfterViewInit = function () {
@@ -179,8 +177,6 @@ var AmChartsDirective = (function () {
         var el = this.el.nativeElement;
         el.id = this.id;
         el.style.display = "block";
-        el.style.width = this.width;
-        el.style.height = this.height;
         this.chart = this.AmCharts.makeChart(this.id, props, this.delay);
     };
     AmChartsDirective.prototype.ngOnChanges = function (x) {
@@ -188,12 +184,6 @@ var AmChartsDirective = (function () {
         var el = this.el.nativeElement;
         if (x.id) {
             el.id = x.id.currentValue;
-        }
-        if (x.width) {
-            el.style.width = x.width.currentValue;
-        }
-        if (x.height) {
-            el.style.height = x.height.currentValue;
         }
         if (x.options) {
             if (this.chart) {
@@ -224,8 +214,6 @@ var AmChartsDirective = (function () {
     AmChartsDirective.propDecorators = {
         'id': [{ type: Input },],
         'options': [{ type: Input },],
-        'width': [{ type: Input },],
-        'height': [{ type: Input },],
         'delay': [{ type: Input },],
     };
     return AmChartsDirective;

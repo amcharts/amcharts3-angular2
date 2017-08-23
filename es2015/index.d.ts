@@ -5,8 +5,6 @@ export declare class AmChartsDirective {
     private zone;
     id: string;
     options: any;
-    width: string;
-    height: string;
     delay: number;
     private chart;
     constructor(el: ElementRef, AmCharts: AmChartsService, zone: NgZone);

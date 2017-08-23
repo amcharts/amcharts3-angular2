@@ -38,7 +38,7 @@ If you are using maps, you should use these `<script>` tags instead:
 
 2) In your app module, import the `AmChartsModule` module and add it to the `imports`:
 
-```js
+```typescript
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
 
 @NgModule({
@@ -53,7 +53,7 @@ export class AppModule {}
 
 3) Inject the `AmChartsService` into your app component, create a `<div>` element with an `id`, then use the `makeChart` method to create the chart:
 
-```js
+```typescript
 import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
 
 @Component({
@@ -89,7 +89,7 @@ When you are finished with the chart, you must call the `destroyChart` method. I
 
 5) If you want to change the chart after the chart has been created, you must make the changes using the `updateChart` method:
 
-```js
+```typescript
 // This must be called when making any changes to the chart
 this.AmCharts.updateChart(this.chart, () => {
   // Change whatever properties you want, add event listeners, etc.
@@ -103,9 +103,33 @@ this.AmCharts.updateChart(this.chart, () => {
 
 ----
 
+6) Rather than using `AmChartsService` you can instead use the `<amCharts>` tag in your template:
+
+```typescript
+@Component({
+  template: `<amCharts id="chartdiv" [options]="options" [style.width.%]="100" [style.height.px]="500"></amCharts>`
+})
+export class AppComponent {
+  private options = {
+    "type": "serial",
+    "theme": "light",
+    "dataProvider": []
+    ...
+  };
+}
+```
+
+This is much easier than using `AmChartsService`, but you cannot call the `AmCharts` methods, and it is difficult to change the chart options, so it works best for charts which do not change.
+
+----
+
 You can see some examples in the `examples` directory.
 
 ## Changelog
+
+### 1.4.0
+* Undeprecating the `AmChartsDirective`
+* Adding in `delay` option for `AmChartsDirective`
 
 ### 1.3.0
 * Adding in all of the global `AmCharts` properties to the `AmChartsService`
