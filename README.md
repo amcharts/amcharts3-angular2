@@ -110,7 +110,7 @@ this.AmCharts.updateChart(this.chart, () => {
   template: `<amCharts id="chartdiv" [options]="options" [style.width.%]="100" [style.height.px]="500"></amCharts>`
 })
 export class AppComponent {
-  private options = {
+  public options = {
     "type": "serial",
     "theme": "light",
     "dataProvider": []

@@ -7,7 +7,7 @@ import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit, OnDestroy {
-  private options: any;
+  public options: any;
   private chart2: AmChart;
   private timer: number;
 
