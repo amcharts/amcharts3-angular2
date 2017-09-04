@@ -10,7 +10,7 @@ npm install @amcharts/amcharts3-angular --save
 How to use
 ==========
 
-1) In your HTML file, load the amCharts library using `<script>` tags:
+1) In your `index.html` file, load the amCharts library using `<script>` tags:
 
 ```html
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
