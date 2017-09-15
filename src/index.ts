@@ -305,8 +305,6 @@ export interface AmChart {
 
 @Injectable()
 export class AmChartsService {
-  private _scriptLoaded: { [url: string]: Promise<void> } = {};
-
   constructor(private zone: NgZone) {}
 
 
@@ -393,39 +391,6 @@ export class AmChartsService {
   // TODO better type for config
   makeChart(id: string | Node, config: any, delay?: number): AmChart {
     return this.zone.runOutsideAngular(() => AmCharts.makeChart(id, config, delay));
-  }
-
-
-  private _loadScript(url: string): Promise<void> {
-    if (!hasOwnKey(this._scriptLoaded, url)) {
-      this._scriptLoaded[url] = new Promise<void>((success, error) => {
-        const x = document.createElement("script");
-
-        x.type = "text/javascript";
-        x.src = url;
-
-        // This causes it to download in parallel but execute in the correct order
-        x.async = false;
-
-        x.onload = () => {
-          success();
-        };
-
-        x.onerror = () => {
-          error(new Error("Could not load the URL: " + url));
-        };
-
-        document.head.appendChild(x);
-      });
-    }
-
-    return this._scriptLoaded[url];
-  }
-
-  loadScripts(urls: Array<string>): Promise<void> {
-    return this.zone.runOutsideAngular(async () => {
-      await Promise.all(urls.map((x) => this._loadScript(x)));
-    });
   }
 
 
