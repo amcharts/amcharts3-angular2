@@ -313,6 +313,22 @@ var AmChartsService = (function () {
     AmChartsService.prototype.makeChart = function (id, config, delay) {
         return this.zone.runOutsideAngular(function () { return AmCharts.makeChart(id, config, delay); });
     };
+    AmChartsService.prototype.addListener = function (chart, type, fn) {
+        var _this = this;
+        var callback = function (e) {
+            _this.zone.run(function () {
+                fn(e);
+            });
+        };
+        this.zone.runOutsideAngular(function () {
+            chart.addListener(type, callback);
+        });
+        return function () {
+            _this.zone.runOutsideAngular(function () {
+                chart.removeListener(chart, type, callback);
+            });
+        };
+    };
     AmChartsService.prototype.updateChart = function (chart, fn) {
         this.zone.runOutsideAngular(function () {
             fn();

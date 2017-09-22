@@ -15,6 +15,9 @@ export declare class AmChartsDirective {
 export interface AmChart {
     [key: string]: any;
 }
+export interface AmEvent {
+    [key: string]: any;
+}
 export declare class AmChartsService {
     private zone;
     constructor(zone: NgZone);
@@ -28,6 +31,7 @@ export declare class AmChartsService {
     processDelay: number;
     readonly charts: Array<AmChart>;
     makeChart(id: string | Node, config: any, delay?: number): AmChart;
+    addListener(chart: AmChart, type: string, fn: (event: AmEvent) => void): () => void;
     updateChart(chart: AmChart, fn: () => void): void;
     destroyChart(chart: AmChart): void;
 }

@@ -1,6 +1,6 @@
 {
   "name": "@amcharts/amcharts3-angular",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Official Angular 2 plugin for amCharts V3",
   "main": "umd/index.js",
   "module": "es2015/index.js",
