@@ -302,6 +302,10 @@ export interface AmChart {
   [key: string]: any;
 }
 
+export interface AmEvent {
+  [key: string]: any;
+}
+
 
 @Injectable()
 export class AmChartsService {
@@ -391,6 +395,25 @@ export class AmChartsService {
   // TODO better type for config
   makeChart(id: string | Node, config: any, delay?: number): AmChart {
     return this.zone.runOutsideAngular(() => AmCharts.makeChart(id, config, delay));
+  }
+
+
+  addListener(chart: AmChart, type: string, fn: (event: AmEvent) => void): () => void {
+    const callback = (e: AmEvent) => {
+      this.zone.run(() => {
+        fn(e);
+      });
+    };
+
+    this.zone.runOutsideAngular(() => {
+      chart.addListener(type, callback);
+    });
+
+    return () => {
+      this.zone.runOutsideAngular(() => {
+        chart.removeListener(chart, type, callback);
+      });
+    };
   }
 
 

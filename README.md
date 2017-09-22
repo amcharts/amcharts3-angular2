@@ -92,18 +92,27 @@ When you are finished with the chart, you must call the `destroyChart` method. I
 ```typescript
 // This must be called when making any changes to the chart
 this.AmCharts.updateChart(this.chart, () => {
-  // Change whatever properties you want, add event listeners, etc.
+  // Change whatever properties you want
   this.chart.dataProvider = [];
-
-  this.chart.addListener("init", () => {
-    // Do stuff after the chart is initialized
-  });
 });
 ```
 
 ----
 
-6) Rather than using `AmChartsService` you can instead use the `<amCharts>` tag in your template:
+6) If you want to add event listeners, use the `addListener` method:
+
+```typescript
+const stop = this.AmCharts.addListener(this.chart, "init", (e) => {
+  // Do stuff when the event happens
+});
+
+// Call the stop function when you want to stop listening to the event
+stop();
+```
+
+----
+
+7) Rather than using `AmChartsService` you can instead use the `<amCharts>` tag in your template:
 
 ```typescript
 @Component({
@@ -126,6 +135,9 @@ This is much easier than using `AmChartsService`, but you cannot call the `AmCha
 You can see some examples in the `examples` directory.
 
 ## Changelog
+
+### 1.5.0
+* Adding in `addListener` method
 
 ### 1.4.0
 * Undeprecating the `AmChartsDirective`
