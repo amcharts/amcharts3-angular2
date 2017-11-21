@@ -144,6 +144,10 @@ You can see some examples in the `examples` directory.
 
 ## Changelog
 
+### 2.0.0
+* Upgrading to Angular 5
+* Removing the Quickstart Seed example
+
 ### 1.5.0
 * Adding in `addListener` method
 
