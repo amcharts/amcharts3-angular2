@@ -181,7 +181,6 @@
             this.el = el;
             this.AmCharts = AmCharts;
             this.zone = zone;
-            this.delay = 0;
         }
         AmChartsDirective.prototype.ngAfterViewInit = function () {
             var props = copy(this.options);
@@ -211,21 +210,6 @@
             if (this.chart) {
                 this.AmCharts.destroyChart(this.chart);
             }
-        };
-        AmChartsDirective.decorators = [
-            { type: core_1.Directive, args: [{
-                        selector: "amCharts"
-                    },] },
-        ];
-        AmChartsDirective.ctorParameters = function () { return [
-            { type: core_1.ElementRef, },
-            { type: AmChartsService, },
-            { type: core_1.NgZone, },
-        ]; };
-        AmChartsDirective.propDecorators = {
-            'id': [{ type: core_1.Input },],
-            'options': [{ type: core_1.Input },],
-            'delay': [{ type: core_1.Input },],
         };
         return AmChartsDirective;
     }());
@@ -351,32 +335,12 @@
                 chart.clear();
             });
         };
-        AmChartsService.decorators = [
-            { type: core_1.Injectable },
-        ];
-        AmChartsService.ctorParameters = function () { return [
-            { type: core_1.NgZone, },
-        ]; };
         return AmChartsService;
     }());
     exports.AmChartsService = AmChartsService;
     var AmChartsModule = (function () {
         function AmChartsModule() {
         }
-        AmChartsModule.decorators = [
-            { type: core_1.NgModule, args: [{
-                        declarations: [
-                            AmChartsDirective
-                        ],
-                        exports: [
-                            AmChartsDirective
-                        ],
-                        providers: [
-                            AmChartsService
-                        ]
-                    },] },
-        ];
-        AmChartsModule.ctorParameters = function () { return []; };
         return AmChartsModule;
     }());
     exports.AmChartsModule = AmChartsModule;

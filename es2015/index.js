@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, NgZone, NgModule, Injectable } from "@angular/core";
+import { Component, Directive, ElementRef, Input, SimpleChanges, NgZone, NgModule, Injectable } from "@angular/core";
 function getType(x) {
     return {}.toString.call(x);
 }
@@ -170,7 +170,6 @@ var AmChartsDirective = (function () {
         this.el = el;
         this.AmCharts = AmCharts;
         this.zone = zone;
-        this.delay = 0;
     }
     AmChartsDirective.prototype.ngAfterViewInit = function () {
         var props = copy(this.options);
@@ -200,21 +199,6 @@ var AmChartsDirective = (function () {
         if (this.chart) {
             this.AmCharts.destroyChart(this.chart);
         }
-    };
-    AmChartsDirective.decorators = [
-        { type: Directive, args: [{
-                    selector: "amCharts"
-                },] },
-    ];
-    AmChartsDirective.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: AmChartsService, },
-        { type: NgZone, },
-    ]; };
-    AmChartsDirective.propDecorators = {
-        'id': [{ type: Input },],
-        'options': [{ type: Input },],
-        'delay': [{ type: Input },],
     };
     return AmChartsDirective;
 }());
@@ -340,32 +324,12 @@ var AmChartsService = (function () {
             chart.clear();
         });
     };
-    AmChartsService.decorators = [
-        { type: Injectable },
-    ];
-    AmChartsService.ctorParameters = function () { return [
-        { type: NgZone, },
-    ]; };
     return AmChartsService;
 }());
 export { AmChartsService };
 var AmChartsModule = (function () {
     function AmChartsModule() {
     }
-    AmChartsModule.decorators = [
-        { type: NgModule, args: [{
-                    declarations: [
-                        AmChartsDirective
-                    ],
-                    exports: [
-                        AmChartsDirective
-                    ],
-                    providers: [
-                        AmChartsService
-                    ]
-                },] },
-    ];
-    AmChartsModule.ctorParameters = function () { return []; };
     return AmChartsModule;
 }());
 export { AmChartsModule };
