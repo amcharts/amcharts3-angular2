@@ -7,6 +7,7 @@
         "outDir": "es2015",
         "target": "es5",
         "module": "es2015",
+        "stripInternal": true,
         "lib": ["es6", "es2015", "dom"],
         "moduleResolution": "node",
         "experimentalDecorators": true,
@@ -17,11 +18,12 @@
         "suppressImplicitAnyIndexErrors": true,
         "sourceMap": true,
         "skipLibCheck": true,
-        "strictNullChecks": true
+        "strict": true
     },
     "angularCompilerOptions": {
         "strictMetadataEmit": true,
-        "skipTemplateCodegen": true
+        "skipTemplateCodegen": true,
+        "annotateForClosureCompiler": true
     },
     "atom": {
         "rewriteTsconfig": false

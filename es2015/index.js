@@ -181,15 +181,15 @@ var AmChartsDirective = (function () {
     AmChartsDirective.prototype.ngOnChanges = function (x) {
         var _this = this;
         var el = this.el.nativeElement;
-        if (x.id) {
-            el.id = x.id.currentValue;
+        if (x["id"]) {
+            el.id = x["id"].currentValue;
         }
-        if (x.options) {
+        if (x["options"]) {
             if (this.chart) {
                 this.zone.runOutsideAngular(function () {
-                    var didUpdate = updateObject(_this.chart, x.options.previousValue, x.options.currentValue);
+                    var didUpdate = updateObject(_this.chart, x["options"].previousValue, x["options"].currentValue);
                     if (didUpdate) {
-                        _this.chart.validateNow(true);
+                        _this.chart["validateNow"](true);
                     }
                 });
             }
@@ -203,6 +203,24 @@ var AmChartsDirective = (function () {
     return AmChartsDirective;
 }());
 export { AmChartsDirective };
+function AmChartsDirective_tsickle_Closure_declarations() {
+    AmChartsDirective.decorators;
+    AmChartsDirective.ctorParameters;
+    AmChartsDirective.propDecorators;
+    AmChartsDirective.prototype.id;
+    AmChartsDirective.prototype.options;
+    AmChartsDirective.prototype.delay;
+    AmChartsDirective.prototype.chart;
+    AmChartsDirective.prototype.el;
+    AmChartsDirective.prototype.AmCharts;
+    AmChartsDirective.prototype.zone;
+}
+export function AmChart() { }
+function AmChart_tsickle_Closure_declarations() {
+}
+export function AmEvent() { }
+function AmEvent_tsickle_Closure_declarations() {
+}
 var AmChartsService = (function () {
     function AmChartsService(zone) {
         this.zone = zone;
@@ -305,32 +323,41 @@ var AmChartsService = (function () {
             });
         };
         this.zone.runOutsideAngular(function () {
-            chart.addListener(type, callback);
+            chart["addListener"](type, callback);
         });
         return function () {
             _this.zone.runOutsideAngular(function () {
-                chart.removeListener(chart, type, callback);
+                chart["removeListener"](chart, type, callback);
             });
         };
     };
     AmChartsService.prototype.updateChart = function (chart, fn) {
         this.zone.runOutsideAngular(function () {
             fn();
-            chart.validateNow(true);
+            chart["validateNow"](true);
         });
     };
     AmChartsService.prototype.destroyChart = function (chart) {
         this.zone.runOutsideAngular(function () {
-            chart.clear();
+            chart["clear"]();
         });
     };
     return AmChartsService;
 }());
 export { AmChartsService };
+function AmChartsService_tsickle_Closure_declarations() {
+    AmChartsService.decorators;
+    AmChartsService.ctorParameters;
+    AmChartsService.prototype.zone;
+}
 var AmChartsModule = (function () {
     function AmChartsModule() {
     }
     return AmChartsModule;
 }());
 export { AmChartsModule };
+function AmChartsModule_tsickle_Closure_declarations() {
+    AmChartsModule.decorators;
+    AmChartsModule.ctorParameters;
+}
 //# sourceMappingURL=index.js.map
