@@ -10,7 +10,7 @@
     "url": "https://github.com/amcharts/amcharts3-angular2.git"
   },
   "scripts": {
-    "build": "ngc -p tsconfig.json && ngc -p tsconfig-umd.json"
+    "build": "ngc --project tsconfig.json && ngc --project tsconfig-umd.json"
   },
   "peerDependencies": {
     "@angular/core": "^5.0.0"
@@ -20,7 +20,7 @@
     "@angular/compiler-cli": "^5.0.2",
     "@angular/core": "^5.0.2",
     "rxjs": "^5.5.2",
-    "typescript": "^2.6.1",
+    "typescript": "~2.4.2",
     "zone.js": "^0.8.18"
   }
 }

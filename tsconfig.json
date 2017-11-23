@@ -14,16 +14,15 @@
         "emitDecoratorMetadata": true,
         "declaration": true,
         "noImplicitAny": true,
-        "removeComments": true,
         "suppressImplicitAnyIndexErrors": true,
         "sourceMap": true,
         "skipLibCheck": true,
         "strict": true
     },
     "angularCompilerOptions": {
+        "annotateForClosureCompiler": true,
         "strictMetadataEmit": true,
-        "skipTemplateCodegen": true,
-        "annotateForClosureCompiler": true
+        "skipTemplateCodegen": true
     },
     "atom": {
         "rewriteTsconfig": false

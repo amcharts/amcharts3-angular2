@@ -11,6 +11,7 @@
     Object.defineProperty(exports, "__esModule", { value: true });
     var core_1 = require("@angular/core");
     function getType(x) {
+        // TODO make this faster ?
         return {}.toString.call(x);
     }
     function hasOwnKey(obj, key) {
@@ -18,6 +19,7 @@
     }
     function copyObject(x) {
         var output = {};
+        // TODO use Object.keys ?
         for (var key in x) {
             if (hasOwnKey(x, key)) {
                 output[key] = copy(x[key]);
@@ -33,12 +35,15 @@
         }
         return output;
     }
+    // TODO can this be made faster ?
+    // TODO what about regexps, etc. ?
     function copy(x) {
         switch (getType(x)) {
             case "[object Array]":
                 return copyArray(x);
             case "[object Object]":
                 return copyObject(x);
+            // TODO is this necessary ?
             case "[object Date]":
                 return new Date(x.getTime());
             default:
@@ -53,9 +58,11 @@
     }
     function removeChartListeners(chart, x, y) {
         if (x !== y) {
+            // TODO is this necessary ?
             if (x == null) {
                 x = [];
             }
+            // TODO is this necessary ?
             if (y == null) {
                 y = [];
             }
@@ -64,8 +71,10 @@
             for (var i = 0; i < xLength; ++i) {
                 var xValue = x[i];
                 var has = false;
+                // TODO make this faster ?
                 for (var j = 0; j < yLength; ++j) {
                     var yValue = y[j];
+                    // TODO is this correct ?
                     if (xValue.event === yValue.event &&
                         xValue.method === yValue.method) {
                         has = true;
@@ -73,6 +82,7 @@
                     }
                 }
                 if (!has) {
+                    // TODO is this correct ?
                     chart.removeListener(chart, xValue.event, xValue.method);
                 }
             }
@@ -94,7 +104,9 @@
                     }
                 }
                 else {
+                    // TODO make this faster ?
                     a[i] = copy(y[i]);
+                    // TODO is this necessary ?
                     didUpdate = true;
                 }
             }
@@ -120,25 +132,30 @@
                         break;
                     case "[object Date]":
                         if (x.getTime() !== y.getTime()) {
+                            // TODO make this faster ?
                             obj[key] = copy(y);
                             didUpdate = true;
                         }
                         break;
                     case "[object Number]":
                         if (!isNumberEqual(x, y)) {
+                            // TODO is the copy necessary ?
                             obj[key] = copy(y);
                             didUpdate = true;
                         }
                         break;
                     default:
                         if (x !== y) {
+                            // TODO is the copy necessary ?
                             obj[key] = copy(y);
                             didUpdate = true;
                         }
                         break;
                 }
+                // TODO is this correct ?
             }
             else {
+                // TODO make this faster ?
                 obj[key] = copy(y);
                 didUpdate = true;
             }
@@ -148,10 +165,14 @@
     function updateObject(chart, oldObj, newObj) {
         var didUpdate = false;
         if (oldObj !== newObj) {
+            // TODO use Object.keys ?
             for (var key in newObj) {
                 if (hasOwnKey(newObj, key)) {
+                    // TODO make this faster ?
                     if (hasOwnKey(oldObj, key)) {
+                        // TODO should this count as an update ?
                         if (key === "listeners") {
+                            // TODO make this faster ?
                             removeChartListeners(chart, oldObj[key], newObj[key]);
                         }
                         if (update(chart, key, oldObj[key], newObj[key])) {
@@ -159,11 +180,13 @@
                         }
                     }
                     else {
+                        // TODO make this faster ?
                         chart[key] = copy(newObj[key]);
                         didUpdate = true;
                     }
                 }
             }
+            // TODO use Object.keys ?
             for (var key in oldObj) {
                 if (hasOwnKey(oldObj, key) && !hasOwnKey(newObj, key)) {
                     if (key === "listeners") {
@@ -181,24 +204,33 @@
             this.el = el;
             this.AmCharts = AmCharts;
             this.zone = zone;
+            this.delay = 0;
         }
         AmChartsDirective.prototype.ngAfterViewInit = function () {
+            // AmCharts mutates the config object, so we have to make a deep copy to prevent that
             var props = copy(this.options);
             var el = this.el.nativeElement;
             el.id = this.id;
             el.style.display = "block";
             this.chart = this.AmCharts.makeChart(this.id, props, this.delay);
         };
-        AmChartsDirective.prototype.ngOnChanges = function (x) {
+        // TODO is this correct ?
+        // TODO is this correct ?
+        AmChartsDirective.prototype.ngOnChanges = 
+        // TODO is this correct ?
+        function (x) {
             var _this = this;
             var el = this.el.nativeElement;
             if (x.id) {
                 el.id = x.id.currentValue;
             }
             if (x.options) {
+                // Update the chart after init
                 if (this.chart) {
+                    // This is needed to avoid triggering ngDoCheck
                     this.zone.runOutsideAngular(function () {
                         var didUpdate = updateObject(_this.chart, x.options.previousValue, x.options.currentValue);
+                        // TODO make this faster
                         if (didUpdate) {
                             _this.chart.validateNow(true);
                         }
@@ -210,6 +242,22 @@
             if (this.chart) {
                 this.AmCharts.destroyChart(this.chart);
             }
+        };
+        AmChartsDirective.decorators = [
+            { type: core_1.Directive, args: [{
+                        selector: "amCharts"
+                    },] },
+        ];
+        /** @nocollapse */
+        AmChartsDirective.ctorParameters = function () { return [
+            { type: core_1.ElementRef, },
+            { type: AmChartsService, },
+            { type: core_1.NgZone, },
+        ]; };
+        AmChartsDirective.propDecorators = {
+            "id": [{ type: core_1.Input },],
+            "options": [{ type: core_1.Input },],
+            "delay": [{ type: core_1.Input },],
         };
         return AmChartsDirective;
     }());
@@ -279,10 +327,16 @@
             configurable: true
         });
         Object.defineProperty(AmChartsService.prototype, "theme", {
-            get: function () {
+            // TODO better type for this
+            get: 
+            // TODO better type for this
+            function () {
                 return AmCharts.theme;
             },
-            set: function (v) {
+            // TODO better type for this
+            set: 
+            // TODO better type for this
+            function (v) {
                 AmCharts.theme = v;
             },
             enumerable: true,
@@ -305,7 +359,14 @@
             enumerable: true,
             configurable: true
         });
-        AmChartsService.prototype.makeChart = function (id, config, delay) {
+        // TODO is Node the correct type ?
+        // TODO better type for config
+        // TODO is Node the correct type ?
+        // TODO better type for config
+        AmChartsService.prototype.makeChart = 
+        // TODO is Node the correct type ?
+        // TODO better type for config
+        function (id, config, delay) {
             return this.zone.runOutsideAngular(function () { return AmCharts.makeChart(id, config, delay); });
         };
         AmChartsService.prototype.addListener = function (chart, type, fn) {
@@ -335,12 +396,34 @@
                 chart.clear();
             });
         };
+        AmChartsService.decorators = [
+            { type: core_1.Injectable },
+        ];
+        /** @nocollapse */
+        AmChartsService.ctorParameters = function () { return [
+            { type: core_1.NgZone, },
+        ]; };
         return AmChartsService;
     }());
     exports.AmChartsService = AmChartsService;
     var AmChartsModule = (function () {
         function AmChartsModule() {
         }
+        AmChartsModule.decorators = [
+            { type: core_1.NgModule, args: [{
+                        declarations: [
+                            AmChartsDirective
+                        ],
+                        exports: [
+                            AmChartsDirective
+                        ],
+                        providers: [
+                            AmChartsService
+                        ]
+                    },] },
+        ];
+        /** @nocollapse */
+        AmChartsModule.ctorParameters = function () { return []; };
         return AmChartsModule;
     }());
     exports.AmChartsModule = AmChartsModule;
