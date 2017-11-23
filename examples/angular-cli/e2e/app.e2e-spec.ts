@@ -1,14 +1,14 @@
-import { AngularCliPage } from './app.po';
+import { AppPage } from './app.po';
 
 describe('angular-cli App', () => {
-  let page: AngularCliPage;
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new AngularCliPage();
+    page = new AppPage();
   });
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!!');
+    expect(page.getParagraphText()).toEqual('Welcome to app!');
   });
 });
