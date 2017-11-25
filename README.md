@@ -3,9 +3,17 @@ Official Angular plugin for amCharts V3
 Installation
 ============
 
-```
-npm install @amcharts/amcharts3-angular --save
-```
+* If you are using Angular 5:
+
+   ```
+   npm install @amcharts/amcharts3-angular --save
+   ```
+
+* If you are using Angular 2 to 4:
+
+   ```
+   npm install @amcharts/amcharts3-angular@^1.5.0 --save
+   ```
 
 How to use
 ==========
