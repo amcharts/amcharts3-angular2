@@ -152,6 +152,9 @@ You can see some examples in the `examples` directory.
 
 ## Changelog
 
+### 2.1.0
+* Adding in `addInitHandler`, `addPrefix`, `clear`, `formatDate`, `formatNumber`, and `stringToDate` methods to `AmChartsService`
+
 ### 2.0.0
 * Upgrading to Angular 5
 * Removing the Quickstart Seed example
