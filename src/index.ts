@@ -306,6 +306,12 @@ export interface AmEvent {
   [key: string]: any;
 }
 
+export interface Formatter {
+  precision: number;
+  decimalSeparator: string;
+  thousandsSeparator: string;
+}
+
 
 @Injectable()
 export class AmChartsService {
@@ -388,6 +394,42 @@ export class AmChartsService {
 
   get charts(): Array<AmChart> {
     return AmCharts.charts;
+  }
+
+
+  addInitHandler(handler: (chart: AmChart) => void, types?: Array<string>): void {
+    // TODO use this.zone.runOutsideAngular ?
+    AmCharts.addInitHandler(handler, types);
+  }
+
+  addPrefix(
+    value: number,
+    prefixesBig: Array<{ number: number, prefix: string }>,
+    prefixesSmall: Array<{ number: number, prefix: string }>,
+    numberFormatter: Formatter
+  ): string {
+    // TODO use this.zone.runOutsideAngular ?
+    return AmCharts.addPrefix(value, prefixesBig, prefixesSmall, numberFormatter);
+  }
+
+  clear(): void {
+    // TODO use this.zone.runOutsideAngular ?
+    AmCharts.clear();
+  }
+
+  formatDate(date: Date, format: string): string {
+    // TODO use this.zone.runOutsideAngular ?
+    return AmCharts.formatDate(date, format);
+  }
+
+  formatNumber(number: number, formatter: Formatter, zeroCount: number): string {
+    // TODO use this.zone.runOutsideAngular ?
+    return AmCharts.formatNumber(number, formatter, zeroCount);
+  }
+
+  stringToDate(string: string, format: string): Date {
+    // TODO use this.zone.runOutsideAngular ?
+    return AmCharts.stringToDate(string, format);
   }
 
 

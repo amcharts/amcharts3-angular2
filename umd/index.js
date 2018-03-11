@@ -359,6 +359,30 @@
             enumerable: true,
             configurable: true
         });
+        AmChartsService.prototype.addInitHandler = function (handler, types) {
+            // TODO use this.zone.runOutsideAngular ?
+            AmCharts.addInitHandler(handler, types);
+        };
+        AmChartsService.prototype.addPrefix = function (value, prefixesBig, prefixesSmall, numberFormatter) {
+            // TODO use this.zone.runOutsideAngular ?
+            return AmCharts.addPrefix(value, prefixesBig, prefixesSmall, numberFormatter);
+        };
+        AmChartsService.prototype.clear = function () {
+            // TODO use this.zone.runOutsideAngular ?
+            AmCharts.clear();
+        };
+        AmChartsService.prototype.formatDate = function (date, format) {
+            // TODO use this.zone.runOutsideAngular ?
+            return AmCharts.formatDate(date, format);
+        };
+        AmChartsService.prototype.formatNumber = function (number, formatter, zeroCount) {
+            // TODO use this.zone.runOutsideAngular ?
+            return AmCharts.formatNumber(number, formatter, zeroCount);
+        };
+        AmChartsService.prototype.stringToDate = function (string, format) {
+            // TODO use this.zone.runOutsideAngular ?
+            return AmCharts.stringToDate(string, format);
+        };
         // TODO is Node the correct type ?
         // TODO better type for config
         // TODO is Node the correct type ?

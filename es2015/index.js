@@ -368,6 +368,18 @@ function AmEvent_tsickle_Closure_declarations() {
     [key: string]: any;
     */
 }
+/**
+ * @record
+ */
+export function Formatter() { }
+function Formatter_tsickle_Closure_declarations() {
+    /** @type {?} */
+    Formatter.prototype.precision;
+    /** @type {?} */
+    Formatter.prototype.decimalSeparator;
+    /** @type {?} */
+    Formatter.prototype.thousandsSeparator;
+}
 var AmChartsService = (function () {
     function AmChartsService(zone) {
         this.zone = zone;
@@ -520,6 +532,92 @@ var AmChartsService = (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * @param {?} handler
+     * @param {?=} types
+     * @return {?}
+     */
+    AmChartsService.prototype.addInitHandler = /**
+     * @param {?} handler
+     * @param {?=} types
+     * @return {?}
+     */
+    function (handler, types) {
+        // TODO use this.zone.runOutsideAngular ?
+        AmCharts.addInitHandler(handler, types);
+    };
+    /**
+     * @param {?} value
+     * @param {?} prefixesBig
+     * @param {?} prefixesSmall
+     * @param {?} numberFormatter
+     * @return {?}
+     */
+    AmChartsService.prototype.addPrefix = /**
+     * @param {?} value
+     * @param {?} prefixesBig
+     * @param {?} prefixesSmall
+     * @param {?} numberFormatter
+     * @return {?}
+     */
+    function (value, prefixesBig, prefixesSmall, numberFormatter) {
+        // TODO use this.zone.runOutsideAngular ?
+        return AmCharts.addPrefix(value, prefixesBig, prefixesSmall, numberFormatter);
+    };
+    /**
+     * @return {?}
+     */
+    AmChartsService.prototype.clear = /**
+     * @return {?}
+     */
+    function () {
+        // TODO use this.zone.runOutsideAngular ?
+        AmCharts.clear();
+    };
+    /**
+     * @param {?} date
+     * @param {?} format
+     * @return {?}
+     */
+    AmChartsService.prototype.formatDate = /**
+     * @param {?} date
+     * @param {?} format
+     * @return {?}
+     */
+    function (date, format) {
+        // TODO use this.zone.runOutsideAngular ?
+        return AmCharts.formatDate(date, format);
+    };
+    /**
+     * @param {?} number
+     * @param {?} formatter
+     * @param {?} zeroCount
+     * @return {?}
+     */
+    AmChartsService.prototype.formatNumber = /**
+     * @param {?} number
+     * @param {?} formatter
+     * @param {?} zeroCount
+     * @return {?}
+     */
+    function (number, formatter, zeroCount) {
+        // TODO use this.zone.runOutsideAngular ?
+        return AmCharts.formatNumber(number, formatter, zeroCount);
+    };
+    /**
+     * @param {?} string
+     * @param {?} format
+     * @return {?}
+     */
+    AmChartsService.prototype.stringToDate = /**
+     * @param {?} string
+     * @param {?} format
+     * @return {?}
+     */
+    function (string, format) {
+        // TODO use this.zone.runOutsideAngular ?
+        return AmCharts.stringToDate(string, format);
+    };
     // TODO is Node the correct type ?
     // TODO better type for config
     /**

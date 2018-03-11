@@ -18,6 +18,11 @@ export interface AmChart {
 export interface AmEvent {
     [key: string]: any;
 }
+export interface Formatter {
+    precision: number;
+    decimalSeparator: string;
+    thousandsSeparator: string;
+}
 export declare class AmChartsService {
     private zone;
     constructor(zone: NgZone);
@@ -30,6 +35,18 @@ export declare class AmChartsService {
     theme: any;
     processDelay: number;
     readonly charts: Array<AmChart>;
+    addInitHandler(handler: (chart: AmChart) => void, types?: Array<string>): void;
+    addPrefix(value: number, prefixesBig: Array<{
+        number: number;
+        prefix: string;
+    }>, prefixesSmall: Array<{
+        number: number;
+        prefix: string;
+    }>, numberFormatter: Formatter): string;
+    clear(): void;
+    formatDate(date: Date, format: string): string;
+    formatNumber(number: number, formatter: Formatter, zeroCount: number): string;
+    stringToDate(string: string, format: string): Date;
     makeChart(id: string | Node, config: any, delay?: number): AmChart;
     addListener(chart: AmChart, type: string, fn: (event: AmEvent) => void): () => void;
     updateChart(chart: AmChart, fn: () => void): void;
