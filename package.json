@@ -1,6 +1,6 @@
 {
   "name": "@amcharts/amcharts3-angular",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Official Angular 2 plugin for amCharts V3",
   "main": "umd/index.js",
   "module": "es2015/index.js",
@@ -13,7 +13,7 @@
     "build": "ngc --project tsconfig.json && ngc --project tsconfig-umd.json"
   },
   "peerDependencies": {
-    "@angular/core": "^5.0.0"
+    "@angular/core": "^5.0.0 || ^6.0.0"
   },
   "devDependencies": {
     "@angular/compiler": "^5.0.2",
