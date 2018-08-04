@@ -152,6 +152,9 @@ You can see some examples in the `examples` directory.
 
 ## Changelog
 
+### 2.2.0
+* Adding in `StockPanel` and `StockGraph` constructors for dynamically adding stock panels/graphs.
+
 ### 2.1.0
 * Adding in `addInitHandler`, `addPrefix`, `clear`, `formatDate`, `formatNumber`, and `stringToDate` methods to `AmChartsService`
 
