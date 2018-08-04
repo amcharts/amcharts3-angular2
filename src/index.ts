@@ -313,9 +313,29 @@ export interface Formatter {
 }
 
 
+export declare class StockPanel {
+  constructor();
+  [key: string]: any;
+}
+
+export declare class StockGraph {
+  constructor();
+  [key: string]: any;
+}
+
+
 @Injectable()
 export class AmChartsService {
   constructor(private zone: NgZone) {}
+
+
+  get StockPanel(): typeof StockPanel {
+    return AmCharts.StockPanel;
+  }
+
+  get StockGraph(): typeof StockGraph {
+    return AmCharts.StockGraph;
+  }
 
 
   get baseHref(): boolean {

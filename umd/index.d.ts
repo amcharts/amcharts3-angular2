@@ -23,9 +23,19 @@ export interface Formatter {
     decimalSeparator: string;
     thousandsSeparator: string;
 }
+export declare class StockPanel {
+    constructor();
+    [key: string]: any;
+}
+export declare class StockGraph {
+    constructor();
+    [key: string]: any;
+}
 export declare class AmChartsService {
     private zone;
     constructor(zone: NgZone);
+    readonly StockPanel: typeof StockPanel;
+    readonly StockGraph: typeof StockGraph;
     baseHref: boolean;
     useUTC: boolean;
     dayNames: Array<string>;

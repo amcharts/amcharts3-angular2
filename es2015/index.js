@@ -384,6 +384,26 @@ var AmChartsService = (function () {
     function AmChartsService(zone) {
         this.zone = zone;
     }
+    Object.defineProperty(AmChartsService.prototype, "StockPanel", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return AmCharts.StockPanel;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AmChartsService.prototype, "StockGraph", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return AmCharts.StockGraph;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(AmChartsService.prototype, "baseHref", {
         get: /**
          * @return {?}
