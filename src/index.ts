@@ -323,6 +323,11 @@ export declare class StockGraph {
   [key: string]: any;
 }
 
+export declare class StockEvent {
+  constructor();
+  [key: string]: any;
+}
+
 
 @Injectable()
 export class AmChartsService {
@@ -335,6 +340,10 @@ export class AmChartsService {
 
   get StockGraph(): typeof StockGraph {
     return AmCharts.StockGraph;
+  }
+
+  get StockEvent(): typeof StockEvent {
+    return AmCharts.StockEvent;
   }
 
 

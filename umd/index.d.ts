@@ -31,11 +31,16 @@ export declare class StockGraph {
     constructor();
     [key: string]: any;
 }
+export declare class StockEvent {
+    constructor();
+    [key: string]: any;
+}
 export declare class AmChartsService {
     private zone;
     constructor(zone: NgZone);
     readonly StockPanel: typeof StockPanel;
     readonly StockGraph: typeof StockGraph;
+    readonly StockEvent: typeof StockEvent;
     baseHref: boolean;
     useUTC: boolean;
     dayNames: Array<string>;
