@@ -404,6 +404,16 @@ var AmChartsService = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(AmChartsService.prototype, "StockEvent", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return AmCharts.StockEvent;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(AmChartsService.prototype, "baseHref", {
         get: /**
          * @return {?}
@@ -749,8 +759,6 @@ var AmChartsModule = (function () {
                     ]
                 },] },
     ];
-    /** @nocollapse */
-    AmChartsModule.ctorParameters = function () { return []; };
     return AmChartsModule;
 }());
 export { AmChartsModule };
