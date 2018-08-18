@@ -152,6 +152,9 @@ You can see some examples in the `examples` directory.
 
 ## Changelog
 
+### 2.2.1
+* Adding in `StockEvent` and `StockLegend` constructors for dynamically adding stock events/legend.
+
 ### 2.2.0
 * Adding in `StockPanel` and `StockGraph` constructors for dynamically adding stock panels/graphs.
 

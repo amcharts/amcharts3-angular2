@@ -328,6 +328,11 @@ export declare class StockEvent {
   [key: string]: any;
 }
 
+export declare class StockLegend {
+  constructor();
+  [key: string]: any;
+}
+
 
 @Injectable()
 export class AmChartsService {
@@ -344,6 +349,10 @@ export class AmChartsService {
 
   get StockEvent(): typeof StockEvent {
     return AmCharts.StockEvent;
+  }
+
+  get StockLegend(): typeof StockLegend {
+    return AmCharts.StockLegend;
   }
 
 
