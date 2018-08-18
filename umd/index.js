@@ -287,6 +287,13 @@
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(AmChartsService.prototype, "StockLegend", {
+            get: function () {
+                return AmCharts.StockLegend;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(AmChartsService.prototype, "baseHref", {
             get: function () {
                 return AmCharts.baseHref;
@@ -467,6 +474,8 @@
                         ]
                     },] },
         ];
+        /** @nocollapse */
+        AmChartsModule.ctorParameters = function () { return []; };
         return AmChartsModule;
     }());
     exports.AmChartsModule = AmChartsModule;
