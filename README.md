@@ -3,7 +3,7 @@ Official Angular plugin for amCharts V3
 Installation
 ============
 
-* If you are using Angular 5:
+* If you are using Angular 5 or higher:
 
    ```
    npm install @amcharts/amcharts3-angular --save
@@ -26,11 +26,12 @@ How to use
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 ```
 
-If you are using other chart types, you should change `serial.js` to the chart type that you are using:
+If you are using stock charts, you should use these `<script>` tags instead:
 
 ```html
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/amstock.js"></script>
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 ```
 
@@ -39,6 +40,14 @@ If you are using maps, you should use these `<script>` tags instead:
 ```html
 <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
 <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+```
+
+If you are using other chart types, you should change `serial.js` to the chart type that you are using:
+
+```html
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 ```
 
