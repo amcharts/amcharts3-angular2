@@ -161,6 +161,9 @@ You can see some examples in the `examples` directory.
 
 ## Changelog
 
+### 2.2.3
+* Upgrading to Angular 7
+
 ### 2.2.1
 * Adding in `StockEvent` and `StockLegend` constructors for dynamically adding stock events/legend.
 
