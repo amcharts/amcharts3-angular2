@@ -161,6 +161,9 @@ You can see some examples in the `examples` directory.
 
 ## Changelog
 
+### 2.2.5
+* Upgrading to Angular 9 - 12
+
 ### 2.2.4
 * Upgrading to Angular 8
 
