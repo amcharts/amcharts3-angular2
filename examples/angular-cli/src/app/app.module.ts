@@ -1,7 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AmChartsModule } from "@amcharts/amcharts3-angular";
-
+import { BrowserModule } from '@angular/platform-browser';
+import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -9,7 +8,6 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-  	AmChartsModule,
     BrowserModule
   ],
   providers: [],

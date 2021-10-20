@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AmChartsService, AmChart } from '@amcharts/amcharts3-angular';
+import { Component } from '@angular/core';
+import { AmChart, AmChartsService } from '@amcharts/amcharts3-angular';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
   public options: any;
-  private chart2: AmChart;
+  private chart: AmChart;
   private timer: number;
 
   constructor(private AmCharts: AmChartsService) {}
@@ -92,15 +92,15 @@ export class AppComponent implements OnInit, OnDestroy {
     this.options = this.makeOptions(this.makeRandomDataProvider());
 
     // Create chartdiv2
-    this.chart2 = this.AmCharts.makeChart('chartdiv2', this.makeOptions(this.makeRandomDataProvider()));
+    this.chart = this.AmCharts.makeChart('chartdiv', this.makeOptions(this.makeRandomDataProvider()));
 
     this.timer = setInterval(() => {
       // Update chartdiv1
       this.options = this.makeOptions(this.makeRandomDataProvider());
 
       // Update chartdiv2
-      this.AmCharts.updateChart(this.chart2, () => {
-        this.chart2.dataProvider = this.makeRandomDataProvider();
+      this.AmCharts.updateChart(this.chart, () => {
+        this.chart.dataProvider = this.makeRandomDataProvider();
       });
     }, 3000);
   }
@@ -108,9 +108,8 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     clearInterval(this.timer);
 
-    // Cleanup chartdiv2
-    if (this.chart2) {
-      this.AmCharts.destroyChart(this.chart2);
+    if (this.chart) {
+      this.AmCharts.destroyChart(this.chart);
     }
   }
 }

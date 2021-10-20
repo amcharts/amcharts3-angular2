@@ -3,10 +3,16 @@ Official Angular plugin for amCharts V3
 Installation
 ============
 
-* If you are using Angular 5 or higher:
+* If you are using Angular 12 or higher:
 
    ```
    npm install @amcharts/amcharts3-angular --save
+   ```
+
+* If you are using Angular 5 to 11:
+
+   ```
+   npm install @amcharts/amcharts3-angular^2.2.5 --save
    ```
 
 * If you are using Angular 2 to 4:
@@ -56,7 +62,7 @@ If you are using other chart types, you should change `serial.js` to the chart t
 2) In your app module, import the `AmChartsModule` module and add it to the `imports`:
 
 ```typescript
-import { AmChartsModule } from "@amcharts/amcharts3-angular";
+import { AmChartsModule } from '@amcharts/amcharts3-angular';
 
 @NgModule({
   imports: [
@@ -71,13 +77,13 @@ export class AppModule {}
 3) Inject the `AmChartsService` into your app component, create a `<div>` element with an `id`, then use the `makeChart` method to create the chart:
 
 ```typescript
-import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
+import { AmChartsService, AmChart } from '@amcharts/amcharts3-angular';
 
 @Component({
   template: `<div id="chartdiv" [style.width.%]="100" [style.height.px]="500"></div>`
 })
 export class AppComponent {
-  private chart: AmChart;
+  private chart: AmChart | undefined;
 
   constructor(private AmCharts: AmChartsService) {}
 
@@ -160,6 +166,9 @@ This is much easier than using `AmChartsService`, but you cannot call the `AmCha
 You can see some examples in the `examples` directory.
 
 ## Changelog
+
+### 3.0.0
+* Adding in support for Angular 12 Ivy
 
 ### 2.2.5
 * Upgrading to Angular 9 - 12

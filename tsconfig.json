@@ -1,30 +1,36 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-    "files": [
-        "src/index.ts"
-    ],
-    "compilerOptions": {
-        "rootDir": "./src",
-        "outDir": "es2015",
-        "target": "es5",
-        "module": "es2015",
-        "stripInternal": true,
-        "lib": ["es6", "es2015", "dom"],
-        "moduleResolution": "node",
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "declaration": true,
-        "noImplicitAny": true,
-        "suppressImplicitAnyIndexErrors": true,
-        "sourceMap": true,
-        "skipLibCheck": true,
-        "strict": true
+  "compileOnSave": false,
+  "compilerOptions": {
+    "paths": {
+      "@amcharts/amcharts3-angular": [
+        "dist/amcharts/amcharts3-angular/amcharts-amcharts3-angular",
+        "dist/amcharts/amcharts3-angular"
+      ]
     },
-    "angularCompilerOptions": {
-        "annotateForClosureCompiler": true,
-        "strictMetadataEmit": true,
-        "skipTemplateCodegen": true
-    },
-    "atom": {
-        "rewriteTsconfig": false
-    }
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2017",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
 }
