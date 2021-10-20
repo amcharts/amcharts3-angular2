@@ -8,8 +8,8 @@ import { AmChart, AmChartsService } from '@amcharts/amcharts3-angular';
 })
 export class AppComponent {
   public options: any;
-  private chart: AmChart;
-  private timer: number;
+  private chart: AmChart | undefined;
+  private timer: number | undefined;
 
   constructor(private AmCharts: AmChartsService) {}
 
@@ -27,7 +27,7 @@ export class AppComponent {
     return dataProvider;
   }
 
-  makeOptions(dataProvider) {
+  makeOptions(dataProvider: object) {
     return {
       'type': 'serial',
       'theme': 'light',
@@ -99,8 +99,8 @@ export class AppComponent {
       this.options = this.makeOptions(this.makeRandomDataProvider());
 
       // Update chartdiv2
-      this.AmCharts.updateChart(this.chart, () => {
-        this.chart.dataProvider = this.makeRandomDataProvider();
+      this.AmCharts.updateChart(this.chart!, () => {
+        this.chart!.dataProvider = this.makeRandomDataProvider();
       });
     }, 3000);
   }

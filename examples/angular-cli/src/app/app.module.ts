@@ -8,7 +8,8 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AmChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,10 +2,12 @@
 # yarn lockfile v1
 
 
-"@amcharts/amcharts3-angular@^2.2.5":
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/@amcharts/amcharts3-angular/-/amcharts3-angular-2.2.5.tgz#1dd2a4ac28321d89c13391ab80a0deea7bb132f9"
-  integrity sha512-YPqJRHC5DSkDaV+Y9WtTa7LSLgehTWVeEAOhFZ3mR1o+XU8eO9gfhGL3yZOLA9ESRrr/JwGQjw/NfVeKTNVWAQ==
+"@amcharts/amcharts3-angular@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@amcharts/amcharts3-angular/-/amcharts3-angular-3.0.0.tgz#9ea2282243bf3a1278d6947f816251e749366cb1"
+  integrity sha512-gG2GbB6MVdiEPLY9epGZqX0GDovx8SXd5eBPCwtG6DDC6DOW/D5hWRPwsmquue88iSTyBa94vaMltCitU2gVjw==
+  dependencies:
+    tslib "^2.3.0"
 
 "@ampproject/remapping@1.0.1":
   version "1.0.1"
