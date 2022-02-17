@@ -168,6 +168,9 @@ You can see some examples in the `examples` directory.
 
 ## Changelog
 
+### 3.0.1
+* Adding in support for Angular 13
+
 ### 3.0.0
 * Adding in support for Angular 12 Ivy
 
