@@ -1,13 +1,13 @@
 {
   "name": "@amcharts/amcharts3-angular",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Official Angular 2 plugin for amCharts V3",
   "repository": {
     "type": "git",
     "url": "https://github.com/amcharts/amcharts3-angular2.git"
   },
   "peerDependencies": {
-    "@angular/core": "^12.2.0 || ^13.0.0"
+    "@angular/core": "^12.2.0 || ^13.0.0 || ^14.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
