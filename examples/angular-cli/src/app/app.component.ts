@@ -94,13 +94,13 @@ export class AppComponent {
     // Create chartdiv2
     this.chart = this.AmCharts.makeChart('chartdiv', this.makeOptions(this.makeRandomDataProvider()));
 
-    this.timer = setInterval(() => {
+    this.timer = window.setInterval(() => {
       // Update chartdiv1
       this.options = this.makeOptions(this.makeRandomDataProvider());
 
       // Update chartdiv2
       this.AmCharts.updateChart(this.chart!, () => {
-        this.chart!.dataProvider = this.makeRandomDataProvider();
+        this.chart!["dataProvider"] = this.makeRandomDataProvider();
       });
     }, 3000);
   }
