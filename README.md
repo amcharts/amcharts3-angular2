@@ -168,6 +168,9 @@ You can see some examples in the `examples` directory.
 
 ## Changelog
 
+### 3.0.4
+* Adding in support for Angular 16
+
 ### 3.0.3
 * Adding in support for Angular 15
 
