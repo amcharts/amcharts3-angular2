@@ -59,33 +59,51 @@ If you are using other chart types, you should change `serial.js` to the chart t
 
 ----
 
-2) In your app module, import the `AmChartsModule` module and add it to the `imports`:
+2) In your app component, import the `AmChartsModule` module and add it to the `imports`:
 
 ```typescript
-import { AmChartsModule } from '@amcharts/amcharts3-angular';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import { AmChart, AmChartsService, AmChartsModule } from '@amcharts/amcharts3-angular';
 
-@NgModule({
-  imports: [
-    AmChartsModule
-  ]
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  // Add the import here
+  imports: [CommonModule, RouterOutlet, AmChartsModule],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
 })
-export class AppModule {}
+export class AppComponent {
 ```
 
 ----
 
 3) Inject the `AmChartsService` into your app component, create a `<div>` element with an `id`, then use the `makeChart` method to create the chart:
 
+```html
+<div id="chartdiv" [style.width.%]="100" [style.height.px]="500"></div>
+```
+
 ```typescript
 import { Component } from '@angular/core';
-import { AmChartsService, AmChart } from '@amcharts/amcharts3-angular';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import { AmChart, AmChartsService, AmChartsModule } from '@amcharts/amcharts3-angular';
 
 @Component({
-  template: `<div id="chartdiv" [style.width.%]="100" [style.height.px]="500"></div>`
+  selector: 'app-root',
+  standalone: true,
+  // Add the import here
+  imports: [CommonModule, RouterOutlet, AmChartsModule],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
 })
 export class AppComponent {
   private chart: AmChart | undefined;
 
+  // Inject the service here
   constructor(private AmCharts: AmChartsService) {}
 
   ngAfterViewInit() {
@@ -167,6 +185,9 @@ This is much easier than using `AmChartsService`, but you cannot call the `AmCha
 You can see some examples in the `examples` directory.
 
 ## Changelog
+
+### 3.0.5
+* Adding in support for Angular 17
 
 ### 3.0.4
 * Adding in support for Angular 16
