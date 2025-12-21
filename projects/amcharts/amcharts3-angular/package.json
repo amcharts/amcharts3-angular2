@@ -1,6 +1,6 @@
 {
   "name": "@amcharts/amcharts3-angular",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "description": "Official Angular 2 plugin for amCharts V3",
   "repository": {
     "type": "git",

@@ -186,6 +186,9 @@ You can see some examples in the `examples` directory.
 
 ## Changelog
 
+### 3.0.8
+* Adding in support for Angular 20 and 21
+
 ### 3.0.7
 * Adding in support for Angular 19
 
